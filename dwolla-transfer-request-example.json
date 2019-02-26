@@ -1,0 +1,27 @@
+// POST https://api.dwolla.com/transfers
+{
+  "_links": {
+    "source": { "href": "https://api.dwolla.com/funding-sources/90fa5286-8abd-4244-ba79-a8a0050d7b22" },
+    "destination": { "href": "https://api.dwolla.com/funding-sources/6e539e84-5e20-46b4-82ae-44872c7b7794" }
+  },
+  "amount": {
+    "currency": "USD",
+    "value": "1.00"
+  },
+  "clearing": {
+    "source": "standard",
+    "destination": "next-available"
+  },
+  "achDetails": {
+    "source": {
+      "addenda": {
+        "values": ["EBPRECAbC3X1 Payment to EBPREC for January Dues"]
+      }
+    },
+    "destination": {
+      "addenda": {
+        "values": ["EBPRECAbC3X1 Payment from <Member> for January Dues"]
+      }
+    }
+  }
+}
