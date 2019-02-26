@@ -1,27 +1,5 @@
-Welcome to Glitch
-=================
+Nourish.is a community membership funding platform for cooperatives, non-profits, and other community organizations.
 
-Click `Show` in the header to see your app live. Updates to your code will instantly deploy and update live.
+It uses [Dwolla](https://www.dwolla.com) for ACH transactions, and can be hosted for free on [Glitch](https://glitch.com)
 
-**Glitch** is the friendly community where you'll build the app of your dreams. Glitch lets you instantly create, remix, edit, and host an app, bot or site, and you can invite collaborators or helpers to simultaneously edit code with you.
-
-Find out more [about Glitch](https://glitch.com/about).
-
-
-Your Project
-------------
-
-On the front-end,
-- edit `public/client.js`, `public/style.css` and `views/index.html`
-- drag in `assets`, like images or music, to add them to your project
-
-On the back-end,
-- your app starts at `server.js`
-- add frameworks and packages in `package.json`
-- safely store app secrets in `.env` (nobody can see this but you and people you invite)
-
-
-Made by [Glitch](https://glitch.com/)
--------------------
-
-\ ゜o゜)ノ
+At some point, it will begin to need to store data, in which case our goal is to use AirTable for persistence; or offer the ability to pay for managed hosting.
