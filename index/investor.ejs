@@ -1,5 +1,4 @@
-<script src="https://cdn.dwolla.com/1/dwolla.js"></script>
-<link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
+<% include ../common/head %>
 
 <h1>
   East Bay Permanent Real Estate Cooperative Investor Portal
@@ -18,41 +17,62 @@
 <div id="paymentForm" class="dn">
   <form action="/transfer" method="POST">
     <label for="amount">
-      Amount: 
-      <input id="amount" name="transfer[amount]" type="number" min="1" max="10" />
+      Amount:
+      <input
+        id="amount"
+        name="transfer[amount]"
+        type="number"
+        min="10"
+        max="1000"
+      />
     </label>
-    <input id="transferFundingSource" type="hidden" name="transfer[fundingSource]" />
+    <input
+      id="transferFundingSource"
+      type="hidden"
+      name="transfer[fundingSource]"
+    />
     <button>Transfer</button>
   </form>
 </div>
 
-<div id="iavContainer">
-
-</div>
+<div id="iavContainer"></div>
 
 <script type="text/javascript">
-  const iavToken = '<%= iavToken %>';
-  const startButton = document.getElementById('start');
-  const paymentForm = document.getElementById('paymentForm');
-  const transferFundingSourceInput = document.getElementById('transferFundingSource');
-  
-  startButton.addEventListener('click', function() {
-    startButton.classList.add('dn');
-    dwolla.configure('sandbox');
-    dwolla.iav.start(iavToken, {
-      container: 'iavContainer',
-      microDeposits: false,
-      fallbackToMicroDeposits: false
-    }, function(err, res) {
-       console.log('Error: ' + JSON.stringify(err) + ' -- Response: ' + JSON.stringify(res));
-      
-      if(res._links['funding-source']) {
-        paymentForm.classList.remove('dn')
-        transferFundingSourceInput.value = res._links['funding-source'].href
-      } else {
-        alert('we had a problem verifying your account. Try again later, or email us for alternate payment methods?')
-        startButton.classList.remove('dn');
+  const iavToken = "<%= iavToken %>";
+  const startButton = document.getElementById("start");
+  const paymentForm = document.getElementById("paymentForm");
+  const transferFundingSourceInput = document.getElementById(
+    "transferFundingSource"
+  );
+
+  startButton.addEventListener("click", function() {
+    startButton.classList.add("dn");
+    dwolla.configure("sandbox");
+    dwolla.iav.start(
+      iavToken,
+      {
+        container: "iavContainer",
+        microDeposits: false,
+        fallbackToMicroDeposits: false
+      },
+      function(err, res) {
+        console.log(
+          "Error: " +
+            JSON.stringify(err) +
+            " -- Response: " +
+            JSON.stringify(res)
+        );
+
+        if (res._links["funding-source"]) {
+          paymentForm.classList.remove("dn");
+          transferFundingSourceInput.value = res._links["funding-source"].href;
+        } else {
+          alert(
+            "we had a problem verifying your account. Try again later, or email us for alternate payment methods?"
+          );
+          startButton.classList.remove("dn");
+        }
       }
-    });
+    );
   });
 </script>
