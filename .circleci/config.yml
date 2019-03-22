@@ -14,8 +14,10 @@ jobs:
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
-      - image: circleci/postgres:11
-
+      - image: circleci/postgres:11.0
+        environment:
+          POSTGRES_USER: circleci
+          POSTGRES_DB: nourish_is_test
     working_directory: ~/repo
 
     steps:
