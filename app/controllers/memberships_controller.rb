@@ -1,8 +1,5 @@
 class MembershipsController < ApplicationController
   def new
-    community = Community.find_by(slug: params[:community_id])
-    render file: 'public/404.html', status: :not_found unless community
-
     @membership = community.memberships.build
   end
 
@@ -20,7 +17,7 @@ class MembershipsController < ApplicationController
   private
 
   def community
-    @community ||= Community.find_by(slug: params[:community_id])
+    @community ||= Community.find_by!(slug: params[:community_id])
   end
 
   def membership_params
