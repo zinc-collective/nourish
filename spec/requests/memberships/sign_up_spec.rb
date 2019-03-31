@@ -30,9 +30,10 @@ RSpec.describe "Membership sign up", type: :request do
 
     context 'invalid params' do
       let(:invalid_params) { { email: 'not_email' } }
-      it "returns http success" do
-        post "/#{community.slug}/memberships", params: invalid_params
-        expect(response).to redirect_to("/#{community.slug}/memberships")
+      it "did not create membership" do
+        expect {
+          post "/#{community.slug}/memberships", params: invalid_params
+        }.to_not change{ Membership.count }
       end
     end
   end
