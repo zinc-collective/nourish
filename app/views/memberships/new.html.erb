@@ -3,16 +3,17 @@
     <fieldset id="sign_up" class="ba b--transparent ph0 mh0">
       <legend class="f4 fw6 ph0 mh0 center">Sign Up</legend>
 
-      <% flash.each do |_key, value| %>
-        <%= render "errors_prompts", value: value %>
-      <% end %>
-
       <div class="mt3">
         <%= label :membership, :name, class: "db fw6 lh-copy f6" %>
         <%= form.text_field :name, required: true, class: "pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" %>
       </div>
       <div class="mv3">
-        <%= label :membership, :email, class: "db fw6 lh-copy f6" %>
+        <%= form.label :email, class: "db fw6 lh-copy f6" do %>
+          Email
+          <% @membership.errors[:email].each do |error| %>
+            <%= render "errors_prompts", value: error %>
+          <% end %>
+        <% end %>
         <%= form.text_field :email, required: true, class: "pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" %>
       </div>
     </fieldset>

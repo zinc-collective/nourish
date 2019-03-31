@@ -4,13 +4,13 @@ class MembershipsController < ApplicationController
   end
 
   def create
-    membership = community.memberships.build
-    membership.assign_attributes(membership_params)
+    @membership = community.memberships.build
+    @membership.assign_attributes(membership_params)
 
-    if membership.save
+    if @membership.save
       render :create
     else
-      redirect_to "/#{community.slug}/memberships", alert: 'Failed to create membership'
+      render :new
     end
   end
 
