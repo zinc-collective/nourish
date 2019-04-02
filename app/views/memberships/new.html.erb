@@ -1,0 +1,24 @@
+<main class="pa4 black-80">
+  <%= form_with mode: @membership, class: "measure center" do |form| %>
+    <fieldset id="sign_up" class="ba b--transparent ph0 mh0">
+      <legend class="f4 fw6 ph0 mh0 center">Sign Up</legend>
+
+      <div class="mt3">
+        <%= label :membership, :name, class: "db fw6 lh-copy f6" %>
+        <%= form.text_field :name, required: true, class: "pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" %>
+      </div>
+      <div class="mv3">
+        <%= form.label :email, class: "db fw6 lh-copy f6" do %>
+          Email
+          <% @membership.errors[:email].each do |error| %>
+            <%= render "errors_prompts", value: error %>
+          <% end %>
+        <% end %>
+        <%= form.text_field :email, required: true, class: "pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" %>
+      </div>
+    </fieldset>
+    <div class="">
+      <%= form.submit value="Sign Up", class: "b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" %>
+    </div>
+  <% end %>
+</main>
