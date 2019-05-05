@@ -10,6 +10,10 @@ class MembershipPolicy < ApplicationPolicy
     person.staff? || person.memberships.pluck(:status).include?('member')
   end
 
+  def approval?
+    index?
+  end
+
   class Scope
     attr_reader :person, :scope
 
@@ -20,8 +24,7 @@ class MembershipPolicy < ApplicationPolicy
 
     def resolve
       return Membership.all if person.staff?
-      communities = person.communities
-      Membership.where(community: communities)
+      Membership.where(community: person.communities)
     end
   end
 end

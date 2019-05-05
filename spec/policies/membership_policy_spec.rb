@@ -14,10 +14,37 @@ RSpec.describe MembershipPolicy do
       end
     end
 
+    context 'when person is nourish staff' do
+      it 'allows access' do
+        expect(MembershipPolicy.new(staff, nil).index?).to be true
+      end
+    end
+
     context 'when person is only a guest in the community' do
       let!(:membership_involved) { create(:membership, :guest, community: community_involved, person: person) }
       it 'denies access' do
         expect(MembershipPolicy.new(person, nil).index?).to be_falsey
+      end
+    end
+  end
+
+  describe 'approval?' do
+    context 'when person has a membership in the community' do
+      it 'allows access' do
+        expect(MembershipPolicy.new(person, nil).approval?).to be true
+      end
+    end
+
+    context 'when person is nourish staff' do
+      it 'allows access' do
+        expect(MembershipPolicy.new(staff, nil).approval?).to be true
+      end
+    end
+
+    context 'when person is only a guest in the community' do
+      let!(:membership_involved) { create(:membership, :guest, community: community_involved, person: person) }
+      it 'denies access' do
+        expect(MembershipPolicy.new(person, nil).approval?).to be_falsey
       end
     end
   end
@@ -28,6 +55,12 @@ RSpec.describe MembershipPolicy do
       context 'returns memberships that the person is involved' do
         it { is_expected.to include membership_involved }
         it { is_expected.to_not include membership_not_involved }
+      end
+
+      context 'when person is nourish staff' do
+        subject { described_class.new(staff, nil).resolve }
+        it { is_expected.to include membership_involved }
+        it { is_expected.to include membership_not_involved }
       end
     end
   end

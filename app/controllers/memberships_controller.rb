@@ -1,6 +1,6 @@
 class MembershipsController < ApplicationController
   before_action :authenticate_person!, only: :index
-  after_action :verify_authorized, only: :index
+  after_action :verify_authorized, only: [:index, :approval]
 
   def index
     authorize Membership
@@ -22,6 +22,7 @@ class MembershipsController < ApplicationController
   end
 
   def approval
+    authorize Membership
     @membership = Membership.find_by!(id: params[:membership_id])
     @membership.approve!
     redirect_to community_memberships_path(@membership.community.slug)
