@@ -30,7 +30,7 @@ class MembershipsController < ApplicationController
   def set_moderator
     authorize Membership
     @membership = Membership.find_by!(id: params[:membership_id])
-    @membership.approve!
+    @membership.set_moderator!
     redirect_to community_memberships_path(@membership.community.slug)
   end
 

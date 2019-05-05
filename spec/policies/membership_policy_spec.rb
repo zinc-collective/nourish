@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe MembershipPolicy do
   let(:person) { create(:person) }
+  let(:staff) { create(:person, staff: true) }
   let(:community_involved) { create(:community) }
   let!(:membership_involved) { create(:membership, community: community_involved, person: person) }
   let!(:membership_not_involved) { create(:membership) }
@@ -17,6 +18,20 @@ RSpec.describe MembershipPolicy do
       let!(:membership_involved) { create(:membership, :guest, community: community_involved, person: person) }
       it 'denies access' do
         expect(MembershipPolicy.new(person, nil).index?).to be_falsey
+      end
+    end
+  end
+
+  describe 'set_moderator' do
+    context 'when person has a membership in the community' do
+      it 'allows access' do
+        expect(MembershipPolicy.new(staff, nil).set_moderator?).to be true
+      end
+    end
+
+    context 'when person is only a guest in the community' do
+      it 'denies access' do
+        expect(MembershipPolicy.new(person, nil).set_moderator?).to be_falsey
       end
     end
   end
