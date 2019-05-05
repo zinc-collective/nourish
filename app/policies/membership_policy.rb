@@ -10,6 +10,10 @@ class MembershipPolicy < ApplicationPolicy
     return true if person.memberships.pluck(:status).include?('member')
   end
 
+  def set_moderator?
+    true if person.staff?
+  end
+
   class Scope
     attr_reader :person, :scope
 

@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   resources :memberships do
     post :approval
+    post :set_moderator
   end
 
   root to: "home#index"

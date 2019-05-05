@@ -3,4 +3,7 @@
   <%= membership.email %>
   <%= membership.status %>
   <%= button_to "Approve", membership_approval_path(membership) %>
+  <% if policy(membership).set_moderator? %>
+    <%= button_to "Set moderator", membership_set_moderator(membership) %>
+  <% end %>
 <% end %>
