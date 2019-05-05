@@ -14,7 +14,9 @@
   </head>
 
   <body>
-    <%= button_to "Sign Out", destroy_person_session_path, method: :delete %>
+    <% if current_person %>
+      <%= button_to "Sign Out", destroy_person_session_path, method: :delete %>
+    <% end %>
     <%= yield %>
   </body>
 </html>
