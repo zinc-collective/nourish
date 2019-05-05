@@ -7,27 +7,6 @@ RSpec.describe MembershipPolicy do
   let!(:membership_involved) { create(:membership, community: community_involved, person: person) }
   let!(:membership_not_involved) { create(:membership) }
 
-  describe 'index?' do
-    context 'when person has a membership in the community' do
-      it 'allows access' do
-        expect(MembershipPolicy.new(person, nil).index?).to be true
-      end
-    end
-
-    context 'when person is nourish staff' do
-      it 'allows access' do
-        expect(MembershipPolicy.new(staff, nil).index?).to be true
-      end
-    end
-
-    context 'when person is only a guest in the community' do
-      let!(:membership_involved) { create(:membership, :guest, community: community_involved, person: person) }
-      it 'denies access' do
-        expect(MembershipPolicy.new(person, nil).index?).to be_falsey
-      end
-    end
-  end
-
   describe 'approval?' do
     context 'when person has a membership in the community' do
       it 'allows access' do

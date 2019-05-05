@@ -11,7 +11,8 @@ class MembershipPolicy < ApplicationPolicy
   end
 
   def approval?
-    index?
+    return true if person.staff == true
+    # return true if person.moderator?(communites)
   end
 
   class Scope
