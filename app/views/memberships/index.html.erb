@@ -1,0 +1,6 @@
+<% @memberships.each do |membership| %>
+  <%= membership.name %>
+  <%= membership.email %>
+  <%= membership.status %>
+  <%= button_to "Approve", membership_approval_path(membership) %>
+<% end %>
