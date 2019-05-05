@@ -14,9 +14,15 @@
   </head>
 
   <body>
-    <% if current_person %>
-      <%= button_to "Sign Out", destroy_person_session_path, method: :delete %>
-    <% end %>
+    <nav>
+      <% if current_person %>
+        Welcome, <%= current_person.email %>
+          (<%= link_to "Sign Out", destroy_person_session_path %>)
+      <%- else %>
+        <%= link_to "Sign up", new_person_registration_path%>
+        <%= link_to "Sign in", new_person_session_path %>
+      <% end %>
+    </nav>
     <%= yield %>
   </body>
 </html>

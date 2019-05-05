@@ -11,4 +11,6 @@ Rails.application.routes.draw do
   resources :memberships do
     post :approval
   end
+
+  root to: "home#index"
 end
