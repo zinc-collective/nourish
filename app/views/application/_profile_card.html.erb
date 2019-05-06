@@ -1,0 +1,20 @@
+<!-- http://tachyons.io/components/cards/profile-card/index.html -->
+
+<article class="mw5 center bg-white br3 pa3 pa4-ns mv3 ba b--black-10">
+  <div class="tc">
+    <%- if local_assigns[:identity_image] %>
+      <img src="<%= local_assigns[:identity_image].url %>"
+           class="br-100 h3 w3 dib"
+           title="<%= local_assigns[:identity_image].title %>">
+    <%- end %>
+    <h1 class="f4"><%= local_assigns[:name] %></h1>
+    <hr class="mw3 bb bw1 b--black-10">
+  </div>
+  <p class="lh-copy measure center f6 black-70">
+    <%= local_assigns[:summary] %>
+  </p>
+  <%- if local_assigns[:call_to_action] %>
+    <%= render 'call_to_action', local_assigns[:call_to_action] %>
+  <% end %>
+</article>
+
