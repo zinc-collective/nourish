@@ -8,7 +8,7 @@ RSpec.describe 'Membership index', type: :request do
       let!(:membership) { create(:membership, community: community, person: person) }
       before { sign_in person }
       it 'returns http success' do
-        get "/communities/#{community.slug}/memberships"
+        get community_memberships_path(community)
         expect(response).to be_successful
       end
     end
@@ -16,14 +16,14 @@ RSpec.describe 'Membership index', type: :request do
     context 'member not involved in community' do
       before { sign_in person }
       it 'returns http success' do
-        get "/communities/#{community.slug}/memberships"
+        get community_memberships_path(community)
         expect(response).to be_successful
       end
     end
 
     context 'not logged in' do
       it 'redirect to user sign_in page' do
-        get "/communities/#{community.slug}/memberships"
+        get community_memberships_path(community)
         expect(response).to redirect_to(new_person_session_path)
       end
     end
