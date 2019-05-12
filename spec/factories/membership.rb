@@ -8,6 +8,13 @@ FactoryBot.define do
     end
 
     status { 'member' }
+    trait :moderator do
+      status { 'moderator' }
+    end
+
+    trait :member do
+      status { 'member' }
+    end
 
     trait :guest do
       status { 'guest' }

@@ -6,11 +6,11 @@ Rails.application.routes.draw do
 
   resources :communities, only: [] do
     resources :memberships, only: [:index]
+    resources :moderators, only: [:update, :destroy]
   end
 
   resources :memberships do
     post :approval
-    post :set_moderator
   end
 
   root to: "home#index"

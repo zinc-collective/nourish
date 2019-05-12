@@ -19,8 +19,4 @@ class Membership < ApplicationRecord
     return if status == 'member'
     update(status: 'member', status_updated_at: Time.current)
   end
-
-  def set_moderator!
-    update(status: 'moderator', status_updated_at: Time.current)
-  end
 end
