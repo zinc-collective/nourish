@@ -1,5 +1,5 @@
 <%- communities.each do |community| %>
   <%= render 'profile_card', { name: community.name,
-                               call_to_action: { url: "/#{community.slug}/memberships",
+                               call_to_action: { url: new_community_membership_path(community.slug),
                                                  text: 'Become a Member' } } %>
 <%- end %>

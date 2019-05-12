@@ -1,11 +1,10 @@
 FactoryBot.define do
 
   factory :membership do
-    name { Faker::App.unique.name }
-    email { Faker::Internet.unique.email }
-    factory :relationship do
-      community
-    end
+    name { Faker::App.name }
+    email { Faker::Internet.email }
+    person
+    community
 
     status { 'member' }
     trait :moderator do
@@ -19,9 +18,6 @@ FactoryBot.define do
     trait :guest do
       status { 'guest' }
     end
-
-    person
-    community
 
     status_updated_at { Time.current }
   end

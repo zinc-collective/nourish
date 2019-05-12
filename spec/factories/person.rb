@@ -1,7 +1,7 @@
 FactoryBot.define do
 
   factory :person do
-    email { Faker::Internet.unique.email }
+    email { Faker::Internet.email }
     password { SecureRandom.hex }
 
     trait :staff do

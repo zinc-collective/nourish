@@ -1,5 +1,5 @@
 <main class="pa4 black-80">
-  <%= form_with mode: @membership, class: "measure center" do |form| %>
+  <%= form_with model: [@membership.community, @membership], class: "measure center" do |form| %>
     <fieldset id="sign_up" class="ba b--transparent ph0 mh0">
       <legend class="f4 fw6 ph0 mh0 center">Sign Up</legend>
 

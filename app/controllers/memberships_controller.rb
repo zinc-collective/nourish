@@ -1,10 +1,11 @@
 class MembershipsController < ApplicationController
   before_action :authenticate_person!, only: :index
-  after_action :verify_authorized, only: :index
+  after_action :verify_authorized, only: [:index, :approval]
+  after_action :verify_policy_scoped, only: :index
 
   def index
     authorize Membership
-    @memberships = MembershipPolicy::Scope.new(current_person, Membership).resolve
+    @memberships = policy_scope(Membership)
   end
 
   def new
@@ -23,6 +24,7 @@ class MembershipsController < ApplicationController
 
   def approval
     @membership = Membership.find_by!(id: params[:membership_id])
+    authorize @membership
     @membership.approve!
     redirect_to community_memberships_path(@membership.community.slug)
   end
@@ -34,6 +36,6 @@ class MembershipsController < ApplicationController
   end
 
   def membership_params
-    params.permit(:name, :email)
+    params.require(:membership).permit(:name, :email)
   end
 end

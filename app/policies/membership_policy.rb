@@ -1,13 +1,17 @@
 class MembershipPolicy < ApplicationPolicy
-  attr_reader :person, :record
+  attr_reader :person, :membership
 
-  def initialize(person, record)
+  def initialize(person, membership)
     @person = person
-    @record = record
+    @membership = membership
   end
 
   def index?
-    person.staff? || person.memberships.pluck(:status).include?('member')
+    true
+  end
+
+  def approval?
+    person.staff? || Moderator.of?(person: person, community: membership.community)
   end
 
   class Scope
@@ -20,8 +24,8 @@ class MembershipPolicy < ApplicationPolicy
 
     def resolve
       return Membership.all if person.staff?
-      communities = person.communities
-      Membership.where(community: communities)
+      community_ids = person.memberships.where(status: ['member', 'moderator']).pluck(:community_id)
+      Membership.where(community_id: community_ids)
     end
   end
 end
