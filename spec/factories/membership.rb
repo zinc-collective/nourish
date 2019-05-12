@@ -1,8 +1,8 @@
 FactoryBot.define do
 
   factory :membership do
-    name { Faker::App.unique.name }
-    email { Faker::Internet.unique.email }
+    name { Faker::App.name }
+    email { Faker::Internet.email }
     factory :relationship do
       community
     end

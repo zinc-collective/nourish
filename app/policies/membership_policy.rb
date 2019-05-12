@@ -11,8 +11,7 @@ class MembershipPolicy < ApplicationPolicy
   end
 
   def approval?
-    return true if person.staff == true
-    # return true if person.moderator?(communites)
+    person.staff? || Moderator.of?(person: person, community: record.community)
   end
 
   class Scope

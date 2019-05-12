@@ -8,7 +8,7 @@ RSpec.describe 'Membership approval', type: :request do
     let!(:membership_to_be_approve) { create(:membership, :guest, community: community, person: not_moderator) }
 
     let(:moderator) { create(:person) }
-    let!(:moderator_membership) { create(:membership, community: community, person: moderator) }
+    let!(:moderator_membership) { create(:membership, :moderator, community: community, person: moderator) }
 
     let(:staff) { create(:person, staff: true) }
     context 'staff' do
