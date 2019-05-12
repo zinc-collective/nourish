@@ -11,22 +11,6 @@ RSpec.describe MembershipPolicy do
   let!(:moderator_membership) { create(:membership, :moderator, community: community, person: moderator) }
   let!(:membership_not_involved) { create(:membership) }
 
-  describe 'index?' do
-    context 'when any staff/ moderator/ member' do
-      it 'returns true' do
-        [staff, moderator, member].each do |role|
-          expect(MembershipPolicy.new(role, nil).index?).to be true
-        end
-      end
-    end
-
-    context 'when only guest' do
-      it 'returns false' do
-        expect(MembershipPolicy.new(guest, nil).index?).to be_falsey
-      end
-    end
-  end
-
   describe 'approval?' do
     context 'when moderator has a membership in the community' do
       it 'allows access' do

@@ -15,9 +15,9 @@ RSpec.describe 'Membership index', type: :request do
 
     context 'member not involved in community' do
       before { sign_in person }
-      it 'redirects to root' do
+      it 'returns http success' do
         get "/communities/#{community.slug}/memberships"
-        expect(response).to redirect_to('/')
+        expect(response).to be_successful
       end
     end
 
