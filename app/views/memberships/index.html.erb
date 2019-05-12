@@ -3,7 +3,7 @@
     <%= membership.name %>
     <%= membership.email %>
     <%= membership.status %>
-    <% if membership.status == 'guest' %>
+    <% if membership.status == 'guest' && policy(membership).approval? %>
       <%= button_to "Approve", membership_approval_path(membership) %>
     <% end %>
     <% if ModeratorPolicy.new(current_person, membership.community).update? &&

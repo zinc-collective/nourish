@@ -7,7 +7,7 @@ class MembershipPolicy < ApplicationPolicy
   end
 
   def index?
-    person.staff? || person.memberships.pluck(:status).include?('member')
+    person.staff? || person.memberships.pluck(:status).any? { |status| status == 'moderator' || status == 'member' }
   end
 
   def approval?
