@@ -36,6 +36,6 @@ class MembershipsController < ApplicationController
   end
 
   def membership_params
-    params.permit(:name, :email)
+    params.require(:membership).permit(:name, :email)
   end
 end
