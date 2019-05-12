@@ -3,4 +3,19 @@
   <%= membership.email %>
   <%= membership.status %>
   <%= button_to "Approve", membership_approval_path(membership) %>
+  <% if ModeratorPolicy.new(current_person, membership.community).update? &&
+       membership.person %>
+    <% if membership.status != 'moderator' %>
+      <%= button_to "Set moderator",
+          community_moderator_path(membership.community, membership.person),
+          method: :put
+      %>
+    <% end %>
+    <% if membership.status == 'moderator' %>
+      <%= button_to "Dismiss moderator",
+          community_moderator_path(membership.community, membership.person),
+          method: :delete
+      %>
+    <% end %>
+  <% end %>
 <% end %>

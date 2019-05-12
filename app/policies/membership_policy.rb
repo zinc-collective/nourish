@@ -7,7 +7,7 @@ class MembershipPolicy < ApplicationPolicy
   end
 
   def index?
-    return true if person.memberships.pluck(:status).include?('member')
+    person.staff? || person.memberships.pluck(:status).include?('member')
   end
 
   class Scope
@@ -19,6 +19,7 @@ class MembershipPolicy < ApplicationPolicy
     end
 
     def resolve
+      return Membership.all if person.staff?
       communities = person.communities
       Membership.where(community: communities)
     end

@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe MembershipPolicy do
   let(:person) { create(:person) }
+  let(:staff) { create(:person, :staff) }
   let(:community_involved) { create(:community) }
   let!(:membership_involved) { create(:membership, community: community_involved, person: person) }
   let!(:membership_not_involved) { create(:membership) }

@@ -4,7 +4,7 @@ class Membership < ApplicationRecord
   validates :name, :email, :community_id, :status_updated_at, presence: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :email, uniqueness: { scope: :community_id, case_sensitive: false }
-  validates :status, inclusion: { in: %w(guest member) }
+  validates :status, inclusion: { in: %w(guest member moderator) }
 
   belongs_to :person, optional: true
 
