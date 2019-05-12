@@ -1,10 +1,11 @@
 class MembershipsController < ApplicationController
   before_action :authenticate_person!, only: :index
   after_action :verify_authorized, only: [:index, :approval]
+  after_action :verify_policy_scoped, only: :index
 
   def index
     authorize Membership
-    @memberships = MembershipPolicy::Scope.new(current_person, Membership).resolve
+    @memberships = policy_scope(Membership)
   end
 
   def new

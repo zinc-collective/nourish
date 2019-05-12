@@ -14,7 +14,10 @@ RSpec.describe 'Membership approval', type: :request do
     context 'staff' do
       it 'returns http success' do
         sign_in staff
-        post "/memberships/#{membership_to_be_approve.id}/approval"
+
+        post membership_approval_path(membership_to_be_approve)
+
+        expect(membership_to_be_approve.reload.status).to eq 'member'
         expect(response).to redirect_to(community_memberships_path(membership_to_be_approve.community.slug))
       end
     end
@@ -22,7 +25,10 @@ RSpec.describe 'Membership approval', type: :request do
     context 'moderator' do
       it 'returns http success' do
         sign_in moderator
-        post "/memberships/#{membership_to_be_approve.id}/approval"
+
+        post membership_approval_path(membership_to_be_approve)
+
+        expect(membership_to_be_approve.reload.status).to eq 'member'
         expect(response).to redirect_to(community_memberships_path(membership_to_be_approve.community.slug))
       end
     end
@@ -30,9 +36,11 @@ RSpec.describe 'Membership approval', type: :request do
     context 'not moderator' do
       it 'redirects to root' do
         sign_in not_moderator
-        post "/memberships/#{membership_to_be_approve.id}/approval"
-        expect(membership_to_be_approve.status).to eq 'guest'
-        expect(response).to redirect_to('/')
+
+        post membership_approval_path(membership_to_be_approve)
+
+        expect(membership_to_be_approve.reload.status).to eq 'guest'
+        expect(response).to redirect_to(root_path)
       end
     end
   end
