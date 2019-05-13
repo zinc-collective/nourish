@@ -13,8 +13,15 @@
   <p class="lh-copy measure center f6 black-70">
     <%= local_assigns[:summary] %>
   </p>
-  <%- if local_assigns[:call_to_action] %>
-    <%= render 'call_to_action', local_assigns[:call_to_action] %>
-  <% end %>
+  <div>
+    <%- if local_assigns[:become_members] %>
+      <%= render 'call_to_action', local_assigns[:become_members] %>
+    <% end %>
+  </div>
+  <div>
+    <%- if local_assigns[:view_members] %>
+      <%= render 'call_to_action', local_assigns[:view_members] %>
+    <% end %>
+  </div>
 </article>
 

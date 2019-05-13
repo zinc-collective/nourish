@@ -5,7 +5,7 @@ class MembershipsController < ApplicationController
 
   def index
     authorize Membership
-    @memberships = policy_scope(Membership)
+    @memberships = policy_scope(Membership).where(community: community)
   end
 
   def new
