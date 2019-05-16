@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  layout "application"
   include Pundit
   protect_from_forgery
 

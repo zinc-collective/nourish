@@ -195,6 +195,9 @@ h1 small, h2 small, h3 small, h4 small, h5 small, h6 small {
 .text-center {
 	text-align: center; }
 
+.text-justify {
+	text-align: justify; }
+
 .text-right {
 	text-align: right; }
 

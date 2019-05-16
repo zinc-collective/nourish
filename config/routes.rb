@@ -10,5 +10,6 @@ Rails.application.routes.draw do
     post :approval
   end
 
+  resource :alpha, only: [:show]
   root to: "home#index"
 end

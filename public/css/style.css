@@ -195,6 +195,9 @@ h1 small, h2 small, h3 small, h4 small, h5 small, h6 small {
 .text-center {
 	text-align: center; }
 
+	.text-justify {
+		text-align: justify; }
+
 .text-right {
 	text-align: right; }
 
@@ -3441,9 +3444,13 @@ dd {
 .offset-top-171 {
 	margin-top: -171px; }
 
+	.offset-top-224 {
+		margin-top: -202px; }
+
 @media only screen and (max-width: 767px) {
 	.offset-top-152,
-	.offset-top-171 {
+	.offset-top-171,
+	.offset-top-224 {
 		margin-top: 0; } }
 
 /* Gradients / Overlays

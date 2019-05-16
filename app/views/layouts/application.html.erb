@@ -1,42 +1,111 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>NourishIs</title>
+
+    <meta charset="utf-8">
+    <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+    <!-- Google Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,400i,500,700' rel='stylesheet'>
+
+    <!-- Css -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/font-icons.css" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" />
+    <link rel="stylesheet" href="/css/style.css?<%=SecureRandom.uuid%>" />
+
+    <!-- Favicons -->
+    <link rel="shortcut icon" href="img/favicon.ico">
+    <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="img/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="img/apple-touch-icon-114x114.png">
+    <title>
+      <%= t '.title', default: "Nourish" %>
+    </title>
+    <%- if content_for? :page_description %>
+      <meta name="description" content="<%=yield%>">
+    <% end %>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
-    <link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
-    <style>
-      .error {
-        color: #FF0000;
-      }
-
-      .ba {
-          border-style: solid;
-          border-width: 1px;
-      }
-
-      .bb {
-          border-bottom-style: solid;
-          border-bottom-width: 1px;
-      }
-
-      .b--black-10 {
-          border-color: rgba(0, 0, 0, .1);
-      }
-    </style>
   </head>
 
   <body>
-    <nav>
-      <% if current_person %>
-        Welcome, <%= current_person.email %>
-          (<%= link_to "Sign Out", destroy_person_session_path %>)
+    <main class="main-wrapper">
+      <header class="nav">
+        <div class="nav__holder nav--sticky">
+          <div class="container-fluid container-semi-fluid nav__container">
+            <div class="flex-parent">
+
+              <div class="nav__header">
+                <!-- Mobile toggle -->
+                <button type="button" class="nav__icon-toggle" id="nav__icon-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="nav__icon-toggle-bar"></span>
+                  <span class="nav__icon-toggle-bar"></span>
+                  <span class="nav__icon-toggle-bar"></span>
+                </button>
+              </div>
+
+              <!-- Navbar -->
+              <nav id="navbar-collapse" class="nav__wrap collapse navbar-collapse">
+                <ul class="nav__menu">
+                  <li>
+                    <%= link_to "Nourish", root_path %>
+                  </li>
+                  <% if current_person %>
+                    <li><%= link_to "Sign Out", destroy_person_session_path %></li>
+                  <%- else %>
+                    <li><%= link_to "Sign in", new_person_session_path %></li>
+                  <% end %>
+                </ul> <!-- end menu -->
+              </nav> <!-- end nav-wrap -->
+
+              <div class="nav__btn-holder nav--align-right">
+                <% if current_person %>
+                  Welcome, <%= current_person.email %>
+                <% end %>
+              </div>
+
+            </div> <!-- end flex-parent -->
+          </div> <!-- end container -->
+
+        </div>
+      </header> <!-- end navigation -->
+      <%- if content_for?(:unwrapped) %>
+        <%= yield :unwrapped %>
       <%- else %>
-        <%= link_to "Sign up", new_person_registration_path%>
-        <%= link_to "Sign in", new_person_session_path %>
+        <div class="content-wrapper oh">
+          <section class="section-wrap">
+            <div class="container">
+              <%= yield %>
+            </div>
+          </section>
+        </div>
       <% end %>
-    </nav>
-    <%= yield %>
+    </main> <!-- end main wrapper -->
+
+
+    <!-- jQuery Scripts -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/plugins.js"></script>
+    <script src="/js/scripts.js"></script>
+
+    <!-- Cookies -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+    <script src="/js/cookies.js"></script>  </main> <!-- end main wrapper -->
+
+
+    <!-- jQuery Scripts -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/plugins.js"></script>
+    <script src="/js/scripts.js"></script>
+
+    <!-- Cookies -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+    <script src="/js/cookies.js"></script>
   </body>
 </html>
