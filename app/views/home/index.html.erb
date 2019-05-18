@@ -1,7 +1,54 @@
-<%- communities.each do |community| %>
-  <%= render 'profile_card', { name: community.name,
-                               become_members: { url: new_community_membership_path(community.slug),
-                                                 text: 'Become a Member' },
-                               view_members:   { url: community_memberships_path(community.slug),
-                                                 text: 'View Members' } } %>
-<%- end %>
+
+<%- content_for :unwrapped do %>
+  <section class="page-title text-center">
+    <div class="container">
+      <div class="page-title__holder">
+        <h1 class="page-title__title"><%= t('.title') %></h1>
+        <p class="page-title__subtitle"><%= t('.subtitle') %></p>
+      </div>
+    </div>
+  </section> <!-- end page title -->
+
+
+  <%= render 'section', class: "bg-gradient" do %>
+    <div class="row justify-content-center">
+      <div class="col-lg-12">
+        <div class="contact bg-color box-shadow-large offset-top-224">
+          <h3 class="section-title text-center"><%= t('alpha_cta.title') %></h3>
+          <p class="subtitle text-justify"><%= t('alpha_cta.subtitle') %></p>
+          <div class="row justify-content-center">
+            <div class="col-lg-6">
+              <%= render 'call_to_action', { text: t('alpha_cta.button_text'), url: '#' } %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br class="clearfix" />
+    <div class="row">
+      <%- ['onboard_members', 'organize_community', 'fund_sustainably'].each do |feature| %>
+        <div class="col-lg-4">
+          <%= render 'feature', { icon: t("home.index.#{feature}.icon"),
+                                  title: t("home.index.#{feature}.title"),
+                                  text: t("home.index.#{feature}.text") } %>
+        </div>
+      <%- end %>
+    </div>
+
+  <%- end %>
+
+  <%= render 'section' do %>
+    <h2><%= t('home.index.browse_communities.title') %></h2>
+    <div class="row card-row">
+      <div class="col-lg-4">
+        <%- communities.each do |community| %>
+          <%= render 'profile_card', { name: community.name,
+                                       calls_to_action: [{ url: new_community_membership_path(community.slug),
+                                                           text: 'Become a Member' },
+                                                         { url: community_memberships_path(community.slug),
+                                                           text: 'View Members' }] } %>
+        <%- end %>
+      </div>
+    </div>
+  <%- end %>
+<% end %>

@@ -30,4 +30,35 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  alpha_cta:
+    title: "Want To  Nourish Your Community?"
+    subtitle: "We're interviewing community organizers
+               seeking more time to facilitate meaningful
+               interactions and relationships."
+    button_text: "Sound Like You? Get In Touch"
+  home:
+    index:
+      title: "Onboard, Organize and Fund your Community"
+      subtitle: "Focus on the heart work, not the busy work of your community."
+
+      onboard_members:
+        icon: "copied-to-clipboard-1"
+        title: "Onboard Members"
+        text: "Streamline sign ups and guide
+               new members towards a healthy first
+               community interaction."
+
+      organize_community:
+        icon: "social-1"
+        title: "Organize Your Community"
+        text: "Connect your members to each other and
+        the resources they need to succeed."
+
+      fund_sustainably:
+        icon: "money-bag-1"
+        title: "Sustainable Funding"
+        text: "Collect one-time or recurring dues, without spending an arm
+               and a leg on transaction fees."
+
+      browse_communities:
+        title: "Find Your Community"
