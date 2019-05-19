@@ -8,6 +8,11 @@ class Membership < ApplicationRecord
 
   belongs_to :person, optional: true
 
+  scope :member, -> { where(status: :member) }
+  scope :guest, -> { where(status: :guest) }
+  scope :moderator, -> { where(status: :moderator) }
+  scope :active, -> { member.or(moderator) }
+
   class << self
     def build_new_member(params)
       params.merge!(status: 'guest', status_updated_at: Time.current)

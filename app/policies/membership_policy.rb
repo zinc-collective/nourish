@@ -7,7 +7,10 @@ class MembershipPolicy < ApplicationPolicy
   end
 
   def index?
-    true
+    return false unless person
+    return true if person.staff?
+    return false unless membership.respond_to?(:pluck)
+    person.memberships.active.where(community_id: membership.pluck(:community_id)).present?
   end
 
   def approval?

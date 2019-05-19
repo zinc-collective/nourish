@@ -15,9 +15,9 @@ RSpec.describe 'Membership index', type: :request do
 
     context 'member not involved in community' do
       before { sign_in person }
-      it 'returns http success' do
+      it 'Redirects to the home page' do
         get community_memberships_path(community)
-        expect(response).to be_successful
+        expect(response).to redirect_to(root_path)
       end
     end
 

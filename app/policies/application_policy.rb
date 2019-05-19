@@ -6,6 +6,10 @@ class ApplicationPolicy
     @record = record
   end
 
+  def person
+    user
+  end
+
   def index?
     false
   end
@@ -43,7 +47,7 @@ class ApplicationPolicy
     end
 
     def resolve
-      scope.all
+      scope.none
     end
   end
 end
