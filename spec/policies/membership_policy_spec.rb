@@ -32,6 +32,34 @@ RSpec.describe MembershipPolicy do
     end
   end
 
+  describe 'show_email?' do
+    context 'when moderator has a membership in the community' do
+      it 'allows access' do
+        expect(MembershipPolicy.new(moderator, moderator_membership).show_email?).to be true
+      end
+    end
+
+    context 'when person is nourish staff' do
+      it 'allows access' do
+        expect(MembershipPolicy.new(staff, nil).show_email?).to be true
+      end
+    end
+
+    context 'when person is only a member in the community' do
+      let!(:membership_involved) { create(:membership, :member, community: community, person: member) }
+      it 'denies access' do
+        expect(MembershipPolicy.new(member, membership_involved).show_email?).to be_falsey
+      end
+    end
+
+    context 'when person is only a guest in the community' do
+      let!(:membership_involved) { create(:membership, :guest, community: community, person: member) }
+      it 'denies access' do
+        expect(MembershipPolicy.new(member, membership_involved).show_email?).to be_falsey
+      end
+    end
+  end
+
   describe MembershipPolicy::Scope do
     describe 'resolve' do
       subject { described_class.new(member, nil).resolve }
