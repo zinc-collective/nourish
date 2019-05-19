@@ -7,9 +7,38 @@ RSpec.describe MembershipPolicy do
   let(:moderator) { create(:person) }
   let(:community) { create(:community) }
   let!(:guest_membership) { create(:membership, :guest, community: community, person: guest) }
-  let!(:membership_involved) { create(:membership, :member, community: community, person: member) }
+  let!(:approved_membership) { create(:membership, :member, community: community, person: member) }
   let!(:moderator_membership) { create(:membership, :moderator, community: community, person: moderator) }
   let!(:membership_not_involved) { create(:membership) }
+  let(:policy) { described_class.new(person, membership) }
+  let(:membership) { nil }
+  let(:person) { nil }
+  describe '#index?' do
+    let(:membership) { community.memberships }
+    subject { policy.index? }
+    context 'when the person is nil' do
+      let(:person) { nil }
+      it { is_expected.to eql false }
+    end
+    context 'when the person is not a member of the community' do
+      let(:person) { membership_not_involved.person }
+      it { is_expected.to eql false }
+    end
+
+    context 'when the person is a guest of the community' do
+      let(:person) { guest_membership.person }
+      it { is_expected.to eql false }
+    end
+
+    context 'when the person is a member of the community' do
+      let(:person) { approved_membership.person }
+      it { is_expected.to eql true }
+    end
+    context 'when the person is a moderator of the community' do
+      let(:person) { moderator_membership.person }
+      it { is_expected.to eql true }
+    end
+  end
 
   describe 'approval?' do
     context 'when moderator has a membership in the community' do
@@ -25,9 +54,9 @@ RSpec.describe MembershipPolicy do
     end
 
     context 'when person is only a guest in the community' do
-      let!(:membership_involved) { create(:membership, :guest, community: community, person: member) }
+      let!(:approved_membership) { create(:membership, :guest, community: community, person: member) }
       it 'denies access' do
-        expect(MembershipPolicy.new(member, membership_involved).approval?).to be_falsey
+        expect(MembershipPolicy.new(member, approved_membership).approval?).to be_falsey
       end
     end
   end
@@ -46,16 +75,16 @@ RSpec.describe MembershipPolicy do
     end
 
     context 'when person is only a member in the community' do
-      let!(:membership_involved) { create(:membership, :member, community: community, person: member) }
+      let!(:approved_membership) { create(:membership, :member, community: community, person: member) }
       it 'denies access' do
-        expect(MembershipPolicy.new(member, membership_involved).show_email?).to be_falsey
+        expect(MembershipPolicy.new(member, approved_membership).show_email?).to be_falsey
       end
     end
 
     context 'when person is only a guest in the community' do
-      let!(:membership_involved) { create(:membership, :guest, community: community, person: member) }
+      let!(:approved_membership) { create(:membership, :guest, community: community, person: member) }
       it 'denies access' do
-        expect(MembershipPolicy.new(member, membership_involved).show_email?).to be_falsey
+        expect(MembershipPolicy.new(member, approved_membership).show_email?).to be_falsey
       end
     end
   end
@@ -64,13 +93,13 @@ RSpec.describe MembershipPolicy do
     describe 'resolve' do
       subject { described_class.new(member, nil).resolve }
       context 'returns memberships that the person is involved' do
-        it { is_expected.to include membership_involved }
+        it { is_expected.to include approved_membership }
         it { is_expected.to_not include membership_not_involved }
       end
 
       context 'when person is nourish staff' do
         subject { described_class.new(staff, nil).resolve }
-        it { is_expected.to include membership_involved }
+        it { is_expected.to include approved_membership }
         it { is_expected.to include membership_not_involved }
       end
     end

@@ -45,8 +45,9 @@
           <%= render 'profile_card', { name: community.name,
                                        calls_to_action: [{ url: new_community_membership_path(community.slug),
                                                            text: 'Become a Member' },
-                                                         { url: community_memberships_path(community.slug),
-                                                           text: 'View Members' }] } %>
+                                                         (policy(community).list_members? ? { url: community_memberships_path(community.slug),
+                                                                                              text: 'View Members' } : nil)
+                                                        ] } %>
         </div>
       <%- end %>
     </div>
