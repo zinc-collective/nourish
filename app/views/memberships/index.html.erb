@@ -1,7 +1,9 @@
 <% @memberships.each do |membership| %>
   <div>
     <%= membership.name %>
-    <%= membership.email %>
+    <% if policy(membership).show_email? %>
+      <%= membership.email %>
+    <% end %>
     <%= membership.status %>
     <% if membership.status == 'guest' && policy(membership).approval? %>
       <%= button_to "Approve", membership_approval_path(membership) %>

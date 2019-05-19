@@ -14,6 +14,10 @@ class MembershipPolicy < ApplicationPolicy
     person.staff? || Moderator.of?(person: person, community: membership.community)
   end
 
+  def show_email?
+    person.staff? || Moderator.of?(person: person, community: membership.community)
+  end
+
   class Scope
     attr_reader :person, :scope
 
