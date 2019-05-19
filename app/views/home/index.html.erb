@@ -18,7 +18,7 @@
           <p class="subtitle text-justify"><%= t('alpha_cta.subtitle') %></p>
           <div class="row justify-content-center">
             <div class="col-lg-6">
-              <%= render 'call_to_action', { text: t('alpha_cta.button_text'), url: '#' } %>
+              <%= render 'call_to_action', { text: t('alpha_cta.button_text'), url: new_community_membership_path(@nourish_community) } %>
             </div>
           </div>
         </div>
@@ -40,15 +40,15 @@
   <%= render 'section' do %>
     <h2><%= t('home.index.browse_communities.title') %></h2>
     <div class="row card-row">
-      <div class="col-lg-4">
-        <%- communities.each do |community| %>
+      <%- communities.each do |community| %>
+        <div class="col-lg-4">
           <%= render 'profile_card', { name: community.name,
                                        calls_to_action: [{ url: new_community_membership_path(community.slug),
                                                            text: 'Become a Member' },
                                                          { url: community_memberships_path(community.slug),
                                                            text: 'View Members' }] } %>
-        <%- end %>
-      </div>
+        </div>
+      <%- end %>
     </div>
   <%- end %>
 <% end %>

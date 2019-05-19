@@ -25,3 +25,5 @@ FactoryBot.create(:membership, :guest, community: community, name: 'guest') do |
     password: 'Password123'
   )
 end.person
+
+FactoryBot.create(:community, name: "Nourish", slug: "nourish")
