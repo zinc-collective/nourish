@@ -1,29 +1,21 @@
-require 'factory_bot_rails'
-require 'faker'
+staff_member = Person.find_or_create_by(email: 'staff@example.com')
+  .tap { |o| o.update(password: 'Password123') }
+zinc_community = Community.find_or_create_by(slug: :zinc)
+  .tap { |o| o.update(name: "Zinc") }
+moderator =  Person.find_or_create_by(email: 'moderator@example.com')
+  .tap { |o| o.update(password: 'Password123') }
+moderator_membership = zinc_community.memberships.find_or_create_by(person: moderator)
+  .tap { |o| o.update(status: :moderator) }
+community_member = Person.find_or_create_by(email: 'member@example.com')
+  .tap { |o| o.update(password: 'Password123') }
+community_member_membership =
+  zinc_community.memberships.find_or_create_by(person: community_member)
+  .tap { |o| o.update(status: :member) }
+guest_member = Person.find_or_create_by(email: 'guest@example.com')
+  .tap { |o| o.update(password: "Password123") }
+guest_member_membership =
+  zinc_community.memberships.find_or_create_by(person: community_member)
+  .tap { |o| o.update(status: :guest) }
 
-community = FactoryBot.create(:community, name: "Zinc", slug: "zinc")
-
-FactoryBot.create(:person, :staff, email: 'staff@example.com', password: 'Password123')
-
-FactoryBot.create(:membership, :moderator, community: community, name: 'moderator') do |membership|
-  membership.person.update(
-    email: 'moderator@example.com',
-    password: 'Password123'
-  )
-end.person
-
-FactoryBot.create(:membership, :member, community: community, name: 'member') do |membership|
-  membership.person.update(
-    email: 'member@example.com',
-    password: 'Password123'
-  )
-end.person
-
-FactoryBot.create(:membership, :guest, community: community, name: 'guest') do |membership|
-  membership.person.update(
-    email: 'guest@example.com',
-    password: 'Password123'
-  )
-end.person
-
-FactoryBot.create(:community, name: "Nourish", slug: "nourish")
+nourish_community = Community.find_or_create_by(slug: :nourish)
+  .tap { |o| o.update(name: "Nourish") }
