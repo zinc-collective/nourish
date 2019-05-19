@@ -2,11 +2,11 @@
 
 Community-centric organization platform
 
-### Developing
+## Developing
 
-#### Requirements
+### Requirements
 
-1. Ruby, version specified in [.ruby-version](https://github.com/zinc-technology/nourish.is/blob/production/.ruby-version)
+1. Ruby, version specified in [.ruby-version](./.ruby-version)
 1. Postgresql v11
 
 ### Getting Started
@@ -15,3 +15,8 @@ Community-centric organization platform
 1. Install dependencies: `bundle install`
 1. Setup the database: `rake db:create db:migrate db:seed`
 1. Start Rails server: `rails s`
+
+## Testing
+
+- Developer testing is done via unit tests and feature tests in the `spec/` folder.
+- Exploratory and usability testing is done on https://nourish-core-sandbox.herokuapp.com/
