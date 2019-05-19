@@ -1,2 +1,2 @@
 web: bundle exec puma -t 5:5 -p ${PORT:-3000} -e ${RACK_ENV:-development}
-release: bundle exec rails db:migrate && rake release:create_nourish_community
+release: bundle exec rails db:migrate && rake populate_production_appropriate_data
