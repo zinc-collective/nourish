@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_05_171151) do
+ActiveRecord::Schema.define(version: 2019_05_19_204505) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 2019_05_05_171151) do
     t.string "slug", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "onboarding_question"
     t.index ["slug"], name: "index_communities_on_slug", unique: true
   end
 
@@ -44,6 +45,7 @@ ActiveRecord::Schema.define(version: 2019_05_05_171151) do
     t.string "status", null: false
     t.datetime "status_updated_at", null: false
     t.uuid "person_id"
+    t.string "onboarding_question_response"
     t.index ["email", "community_id"], name: "index_memberships_on_email_and_community_id", unique: true
     t.index ["name", "email", "community_id"], name: "index_memberships_on_name_and_email_and_community_id"
     t.index ["status"], name: "index_memberships_on_status"

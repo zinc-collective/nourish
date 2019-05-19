@@ -1,0 +1,17 @@
+<div class="title-row title-row--boxed text-center">
+  <h1 class="section-title">Configure Community</h2>
+</div>
+
+<main class="row mb-64">
+  <div class="col-md-12">
+  <%= form_with model: [@community] do |form| %>
+    <div class="col-md-12">
+      <%= label :onboarding_question, :onboarding_question %>
+      <%= form.text_field :onboarding_question %>
+    </div>
+    <div class="col-md-12">
+      <%= form.submit value="Update", class: "btn btn--lg btn--color" %>
+    </div>
+  <% end %>
+  </div>
+</main>

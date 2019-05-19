@@ -72,4 +72,42 @@ RSpec.describe CommunityPolicy do
       it { is_expected.to eql false }
     end
   end
+
+  describe '#show?' do
+    subject { policy.show? }
+
+    context 'when the person is not logged in' do
+      let(:person) { nil }
+      it { is_expected.to be_falsey }
+    end
+
+    context 'when person is a nourish staff' do
+      let(:person) { create(:person, :staff) }
+      it { is_expected.to eql true }
+    end
+
+    context 'when person is not a nourish staff' do
+      let(:membership) { create(:membership, :moderator) }
+      it { is_expected.to be_falsey }
+    end
+  end
+
+  describe '#update?' do
+    subject { policy.update? }
+
+    context 'when the person is not logged in' do
+      let(:person) { nil }
+      it { is_expected.to be_falsey }
+    end
+
+    context 'when person is a nourish staff' do
+      let(:person) { create(:person, :staff) }
+      it { is_expected.to eql true }
+    end
+
+    context 'when person is not a nourish staff' do
+      let(:membership) { create(:membership, :moderator) }
+      it { is_expected.to be_falsey }
+    end
+  end
 end
