@@ -26,4 +26,4 @@ FactoryBot.create(:membership, :guest, community: community, name: 'guest') do |
   )
 end.person
 
-nourish_community = FactoryBot.create(:community, name: "Nourish", slug: "nourish")
+FactoryBot.create(:community, name: "Nourish", slug: "nourish")
