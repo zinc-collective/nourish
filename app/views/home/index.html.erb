@@ -43,8 +43,8 @@
       <%- communities.each do |community| %>
         <div class="col-lg-4">
           <%= render 'profile_card', { name: community.name,
-                                       calls_to_action: [{ url: new_community_membership_path(community.slug),
-                                                           text: 'Become a Member' },
+                                       calls_to_action: [(policy(community).join? ? { url: new_community_membership_path(community.slug),
+                                                           text: 'Become a Member' } : nil),
                                                          (policy(community).list_members? ? { url: community_memberships_path(community.slug),
                                                                                               text: 'View Members' } : nil)
                                                         ] } %>

@@ -3,6 +3,11 @@ class CommunityPolicy < ApplicationPolicy
     record
   end
 
+  def join?
+    return true unless person
+    person.memberships.where(community: community).empty?
+  end
+
   def list_members?
     return true if person && person.staff?
     return false unless person && community
