@@ -5,7 +5,7 @@ RSpec.describe 'Membership approval', type: :request do
     let(:community) { create(:community) }
 
     let(:not_moderator) { create(:person) }
-    let!(:membership_to_be_approve) { create(:membership, :guest, community: community, person: not_moderator) }
+    let!(:membership_to_be_approve) { create(:membership, :pending, community: community, person: not_moderator) }
 
     let(:moderator) { create(:person) }
     let!(:moderator_membership) { create(:membership, :moderator, community: community, person: moderator) }
@@ -39,7 +39,7 @@ RSpec.describe 'Membership approval', type: :request do
 
         post membership_approval_path(membership_to_be_approve)
 
-        expect(membership_to_be_approve.reload.status).to eq 'guest'
+        expect(membership_to_be_approve.reload.status).to eq 'pending'
         expect(response).to redirect_to(root_path)
       end
     end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_19_204505) do
+ActiveRecord::Schema.define(version: 2019_05_26_183507) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 2019_05_19_204505) do
     t.uuid "community_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "status", null: false
+    t.string "status", default: "pending", null: false
     t.datetime "status_updated_at", null: false
     t.uuid "person_id"
     t.string "onboarding_question_response"

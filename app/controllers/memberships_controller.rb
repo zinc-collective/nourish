@@ -9,7 +9,7 @@ class MembershipsController < ApplicationController
   end
 
   def new
-    @membership = community.memberships.build
+    @membership = community.memberships.build(email: current_person&.email)
     @onboarding_question = community.onboarding_question if community.onboarding_question.present?
   end
 
@@ -37,6 +37,8 @@ class MembershipsController < ApplicationController
   end
 
   def membership_params
-    params.require(:membership).permit(:name, :email, :onboarding_question_response)
+    params.require(:membership)
+      .permit(:name, :email, :onboarding_question_response)
+      .merge(person: current_person)
   end
 end

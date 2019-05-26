@@ -16,12 +16,12 @@ community_member_membership =
   .tap { |o| o.update(status: :member, status_updated_at: Time.now,
                       name: community_member.email, email: community_member.email ) }
 
-guest_member = Person.find_or_create_by(email: 'guest@example.com')
+pending_member = Person.find_or_create_by(email: 'pending@example.com')
   .tap { |o| o.update(password: "Password123") }
-guest_member_membership =
+pending_member_membership =
   zinc_community.memberships.find_or_create_by(person: community_member)
-  .tap { |o| o.update(status: :guest, status_updated_at: Time.now,
-                      name: guest_member.email, email: guest_member.email) }
+  .tap { |o| o.update(status: :pending, status_updated_at: Time.now,
+                      name: pending_member.email, email: pending_member.email) }
 
 nourish_community = Community.find_or_create_by(slug: :nourish)
   .tap { |o| o.update(name: "Nourish") }

@@ -15,7 +15,7 @@ RSpec.describe CommunityPolicy do
     end
 
     context 'when the person is not approved' do
-      let(:membership) { create(:membership, :guest) }
+      let(:membership) { create(:membership, :pending) }
       it { is_expected.to eql false }
     end
 
@@ -48,7 +48,7 @@ RSpec.describe CommunityPolicy do
     end
 
     context 'when the person is not approved' do
-      let(:membership) { create(:membership, :guest) }
+      let(:membership) { create(:membership, :pending) }
       it { is_expected.to eql false }
     end
 
@@ -62,7 +62,7 @@ RSpec.describe CommunityPolicy do
       it { is_expected.to eql true }
 
       context 'and already a member of the community' do
-        let(:membership) { create(:membership, :guest, person: person) }
+        let(:membership) { create(:membership, :pending, person: person) }
         it { is_expected.to eql false }
       end
     end
