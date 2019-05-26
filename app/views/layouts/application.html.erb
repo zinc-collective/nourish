@@ -17,10 +17,10 @@
     <link rel="stylesheet" href="/css/style.css?<%=SecureRandom.uuid%>" />
 
     <!-- Favicons -->
-    <link rel="shortcut icon" href="img/favicon.ico">
-    <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="img/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="img/apple-touch-icon-114x114.png">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/img/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/img/apple-touch-icon-114x114.png">
     <title>
       <%= t '.title', default: "Nourish" %>
     </title>
@@ -70,8 +70,17 @@
 
             </div> <!-- end flex-parent -->
           </div> <!-- end container -->
-
         </div>
+        <% flash.each do |key, value| %>
+          <div class="alert alert-<%= key %>">
+            <a href="#" data-dismiss="alert" class="close">×</a>
+            <ul>
+              <li>
+                <%= value %>
+              </li>
+            </ul>
+          </div>
+        <% end %>
       </header> <!-- end navigation -->
       <%- if content_for?(:unwrapped) %>
         <%= yield :unwrapped %>

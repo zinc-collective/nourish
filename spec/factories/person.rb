@@ -2,7 +2,7 @@ FactoryBot.define do
 
   factory :person do
     email { Faker::Internet.email }
-    password { SecureRandom.hex }
+    password { 'password' }
 
     trait :staff do
       staff { true }
