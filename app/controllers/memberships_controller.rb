@@ -14,10 +14,7 @@ class MembershipsController < ApplicationController
   end
 
   def create
-    @membership = community.memberships.build_new_member(
-      person: current_person,
-      params: membership_params,
-    )
+    @membership = community.memberships.build_new_member(membership_params)
 
     if @membership.save
       render :create
@@ -40,6 +37,8 @@ class MembershipsController < ApplicationController
   end
 
   def membership_params
-    params.require(:membership).permit(:name, :email, :onboarding_question_response)
+    params.require(:membership)
+      .permit(:name, :email, :onboarding_question_response)
+      .merge(person: current_person)
   end
 end

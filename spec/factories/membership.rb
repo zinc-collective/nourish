@@ -15,8 +15,8 @@ FactoryBot.define do
       status { 'member' }
     end
 
-    trait :guest do
-      status { 'guest' }
+    trait :pending do
+      status { 'pending' }
     end
 
     status_updated_at { Time.current }

@@ -4,21 +4,19 @@ class Membership < ApplicationRecord
   validates :name, :email, :community_id, :status_updated_at, presence: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :email, uniqueness: { scope: :community_id, case_sensitive: false }
-  validates :status, inclusion: { in: %w(guest member moderator) }
+  validates :status, inclusion: { in: %w(pending member moderator) }
 
   belongs_to :person, optional: true
 
   scope :member, -> { where(status: :member) }
-  scope :guest, -> { where(status: :guest) }
+  scope :pending, -> { where(status: :pending) }
   scope :moderator, -> { where(status: :moderator) }
   scope :active, -> { member.or(moderator) }
 
   class << self
-    def build_new_member(person: nil, params:)
-      params.merge!(status: 'guest', status_updated_at: Time.current)
-      member = new(params)
-      member.person = person
-      member
+    def build_new_member(params)
+      params.merge!(status: 'pending', status_updated_at: Time.current)
+      new(params)
     end
   end
 

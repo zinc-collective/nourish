@@ -5,7 +5,7 @@
       <%= membership.email %>
     <% end %>
     <%= membership.status %>
-    <% if membership.status == 'guest' && policy(membership).approval? %>
+    <% if membership.status == 'pending' && policy(membership).approval? %>
       <%= button_to "Approve", membership_approval_path(membership) %>
     <% end %>
     <% if ModeratorPolicy.new(current_person, membership.community).update? &&

@@ -1,12 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe MembershipPolicy do
-  let(:guest) { create(:person) }
+  let(:pending) { create(:person) }
   let(:member) { create(:person) }
   let(:staff) { create(:person, :staff) }
   let(:moderator) { create(:person) }
   let(:community) { create(:community) }
-  let!(:guest_membership) { create(:membership, :guest, community: community, person: guest) }
+  let!(:pending_membership) { create(:membership, :pending, community: community, person: pending) }
   let!(:approved_membership) { create(:membership, :member, community: community, person: member) }
   let!(:moderator_membership) { create(:membership, :moderator, community: community, person: moderator) }
   let!(:membership_not_involved) { create(:membership) }
@@ -25,8 +25,8 @@ RSpec.describe MembershipPolicy do
       it { is_expected.to eql false }
     end
 
-    context 'when the person is a guest of the community' do
-      let(:person) { guest_membership.person }
+    context "when the person's community membership is pending" do
+      let(:person) { pending_membership.person }
       it { is_expected.to eql false }
     end
 
@@ -53,8 +53,8 @@ RSpec.describe MembershipPolicy do
       end
     end
 
-    context 'when person is only a guest in the community' do
-      let!(:approved_membership) { create(:membership, :guest, community: community, person: member) }
+    context "when the person's community membership is pending" do
+      let!(:approved_membership) { create(:membership, :pending, community: community, person: member) }
       it 'denies access' do
         expect(MembershipPolicy.new(member, approved_membership).approval?).to be_falsey
       end
@@ -81,8 +81,8 @@ RSpec.describe MembershipPolicy do
       end
     end
 
-    context 'when person is only a guest in the community' do
-      let!(:approved_membership) { create(:membership, :guest, community: community, person: member) }
+    context "when the person's community membership is pending" do
+      let!(:approved_membership) { create(:membership, :pending, community: community, person: member) }
       it 'denies access' do
         expect(MembershipPolicy.new(member, approved_membership).show_email?).to be_falsey
       end

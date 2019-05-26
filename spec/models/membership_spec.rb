@@ -6,7 +6,7 @@ RSpec.describe Membership, type: :model do
   it { is_expected.to validate_presence_of(:status_updated_at) }
   it do
     is_expected.to validate_inclusion_of(:status).in_array(
-      ['guest', 'member']
+      ['pending', 'member']
     )
   end
 
@@ -16,11 +16,12 @@ RSpec.describe Membership, type: :model do
   end
 
   describe '.build new member' do
-    subject { Membership.build_new_member(person: person, params: membership_params) }
+    subject { Membership.build_new_member(membership_params) }
     let(:membership_params) do
       {
         name: Faker::App.name,
-        email: Faker::Internet.email
+        email: Faker::Internet.email,
+        person: person
       }
     end
 

@@ -29,7 +29,7 @@ RSpec.describe Moderator, type: :model do
     end
 
     context 'not moderator' do
-      let!(:membership) { create(:membership, :guest, person: person, community: community) }
+      let!(:membership) { create(:membership, :pending, person: person, community: community) }
       subject { Moderator.of?(person: person, community: community) }
       it { is_expected.to be_falsey }
     end
