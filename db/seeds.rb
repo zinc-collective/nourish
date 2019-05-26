@@ -1,5 +1,5 @@
 staff_member = Person.find_or_create_by(email: 'staff@example.com')
-  .tap { |o| o.update(password: 'Password123') }
+  .tap { |o| o.update(password: 'Password123', staff: true) }
 zinc_community = Community.find_or_create_by(slug: :zinc)
   .tap { |o| o.update(name: "Zinc") }
 
