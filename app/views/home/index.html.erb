@@ -46,7 +46,9 @@
                                        calls_to_action: [(policy(community).join? ? { url: new_community_membership_path(community.slug),
                                                            text: 'Become a Member' } : nil),
                                                          (policy(community).list_members? ? { url: community_memberships_path(community.slug),
-                                                                                              text: 'View Members' } : nil)
+                                                                                              text: 'View Members' } : nil),
+                                                         (policy(community).edit? ? { url: edit_community_path(community.slug),
+                                                                                      text: 'Configure Community' } : nil),
                                                         ] } %>
         </div>
       <%- end %>

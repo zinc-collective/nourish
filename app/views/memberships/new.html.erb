@@ -16,6 +16,12 @@
         <% end %>
         <%= form.text_field :email, required: true, class: "pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" %>
       </div>
+      <% if @onboarding_question %>
+        <div class="mt3">
+          <label><%= @onboarding_question %></label>
+          <%= form.text_field :onboarding_question_response, required: true, class: "pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" %>
+        </div>
+      <% end %>
     </fieldset>
     <div class="">
       <%= form.submit value="Sign Up", class: "b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" %>

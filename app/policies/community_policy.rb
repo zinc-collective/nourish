@@ -13,4 +13,13 @@ class CommunityPolicy < ApplicationPolicy
     return false unless person && community
     MembershipPolicy.new(person, community.memberships).index?
   end
+
+  def edit?
+    person &&
+      (person.staff? || Moderator.of?(person: person, community: community))
+  end
+
+  def update?
+    edit?
+  end
 end
