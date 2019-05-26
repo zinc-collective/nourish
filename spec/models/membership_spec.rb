@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe Membership, type: :model do
   it { is_expected.to validate_presence_of(:name) }
   it { is_expected.to validate_presence_of(:email) }
-  it { is_expected.to validate_presence_of(:status_updated_at) }
   it do
     is_expected.to validate_inclusion_of(:status).in_array(
       ['pending', 'member']
