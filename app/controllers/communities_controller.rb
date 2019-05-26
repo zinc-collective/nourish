@@ -2,7 +2,7 @@ class CommunitiesController < ApplicationController
   before_action :authenticate_person!
   after_action :verify_authorized
 
-  def show
+  def edit
     authorize community
   end
 

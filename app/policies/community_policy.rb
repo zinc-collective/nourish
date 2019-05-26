@@ -14,11 +14,12 @@ class CommunityPolicy < ApplicationPolicy
     MembershipPolicy.new(person, community.memberships).index?
   end
 
-  def show?
-    person&.staff?
+  def edit?
+    person &&
+      (person.staff? || Moderator.of?(person: person, community: community))
   end
 
   def update?
-    show?
+    edit?
   end
 end

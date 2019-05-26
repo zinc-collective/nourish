@@ -47,7 +47,7 @@
                                                            text: 'Become a Member' } : nil),
                                                          (policy(community).list_members? ? { url: community_memberships_path(community.slug),
                                                                                               text: 'View Members' } : nil),
-                                                         (policy(community).show? ? { url: community_path(community.slug),
+                                                         (policy(community).edit? ? { url: edit_community_path(community.slug),
                                                                                       text: 'Configure Community' } : nil),
                                                         ] } %>
         </div>
