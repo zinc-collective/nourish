@@ -9,12 +9,15 @@ class MembershipsController < ApplicationController
   end
 
   def new
-    @membership = community.memberships.build
+    @membership = community.memberships.build(email: current_person&.email)
     @onboarding_question = community.onboarding_question if community.onboarding_question.present?
   end
 
   def create
-    @membership = community.memberships.build_new_member(membership_params)
+    @membership = community.memberships.build_new_member(
+      person: current_person,
+      params: membership_params,
+    )
 
     if @membership.save
       render :create

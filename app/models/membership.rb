@@ -14,9 +14,11 @@ class Membership < ApplicationRecord
   scope :active, -> { member.or(moderator) }
 
   class << self
-    def build_new_member(params)
+    def build_new_member(person: nil, params:)
       params.merge!(status: 'guest', status_updated_at: Time.current)
-      new(params)
+      member = new(params)
+      member.person = person
+      member
     end
   end
 
