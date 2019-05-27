@@ -19,6 +19,14 @@ class Membership < ApplicationRecord
     status.to_sym == :moderator
   end
 
+  def pending?
+    status.to_sym == :pending
+  end
+
+  def member?
+    status.to_sym == :member
+  end
+
   class << self
     def build_new_member(params)
       params.merge!(status: 'pending')

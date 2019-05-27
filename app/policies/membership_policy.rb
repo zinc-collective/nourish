@@ -12,7 +12,7 @@ class MembershipPolicy < ApplicationPolicy
   end
 
   def approve_member?
-    staff_or_moderator?
+    membership.pending? && staff_or_moderator?
   end
   alias_method :approval?, :approve_member?
 
@@ -25,7 +25,7 @@ class MembershipPolicy < ApplicationPolicy
   end
 
   def promote_moderator?
-    !membership.moderator? && staff_or_moderator?
+    !membership.pending? && !membership.moderator? && staff_or_moderator?
   end
 
   def demote_moderator?

@@ -1,32 +1,35 @@
 <% @memberships.each do |membership| %>
-  <div class="membership membership--<%= membership.status%>" data-test-id="<%= membership.id %>">
+  <div class="membership --<%= membership.status%>" data-id="<%= membership.id %>">
     <h3>
-      <%= membership.name %>
-      (<span class="membership_status membership_status--<%= membership.status %>"><%= membership.status %></span>)</h3>
-
+      <span class="name"><%= membership.name %></span>
+      (<span class="status --<%= membership.status %>"><%= membership.status %></span>)</h3>
 
     <% if policy(membership).show_email? %>
-      <p class="membership_email"><%= membership.email %></p>
+      <p class="email"><%= membership.email %></p>
     <% end %>
 
     <% if policy(membership).show_onboarding_question_response? %>
-      <p class="membership_email"><%= membership.onboarding_question_response %></p>
+      <p>
+        <span class="onboarding-question"><%= membership.community.onboarding_question%>
+        <span class="onboarding-question-response"><%= membership.onboarding_question_response %></span>
+      </p>
     <% end %>
 
     <% if policy(membership).approve_member? %>
-      <%= button_to "Approve", membership_approval_path(membership) %>
+      <%= button_to "Approve",
+                    membership_approval_path(membership), class: 'approve-member' %>
     <% end %>
 
     <% if policy(membership).promote_moderator? %>
       <%= button_to "Promote to moderator",
-          community_moderator_path(membership.community, membership.person),
-          method: :put %>
+                    community_moderator_path(membership.community, membership.person),
+                    class: 'promote-to-moderator', method: :put %>
     <% end %>
 
     <% if policy(membership).demote_moderator? %>
       <%= button_to "Demote from moderator",
-          community_moderator_path(membership.community, membership.person),
-          method: :delete %>
+                    community_moderator_path(membership.community, membership.person),
+                    class: 'demote-from-moderator', method: :delete %>
     <% end %>
   </div>
 <% end %>

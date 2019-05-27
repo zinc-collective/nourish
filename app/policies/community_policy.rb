@@ -15,8 +15,8 @@ class CommunityPolicy < ApplicationPolicy
   end
 
   def edit?
-    person &&
-      (person.staff? || Moderator.of?(person: person, community: community))
+  person &&
+    (person.staff? || Moderator.of?(person: person, community: community))
   end
 
   def update?
