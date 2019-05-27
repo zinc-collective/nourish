@@ -18,6 +18,7 @@ RSpec.feature "Community Moderator Views Member List", :type => :feature do
 
     visit community_memberships_path(community)
 
+    # Ensure each membership has all the expected data in the expected containers
     [pending_membership, approved_membership, moderator_membership].each do |membership|
       within ".membership.--#{membership.status}[data-id='#{membership.id}']" do
         within('.name') { expect(page).to have_text(membership.name) }
@@ -30,18 +31,22 @@ RSpec.feature "Community Moderator Views Member List", :type => :feature do
       end
     end
 
+
+    # Confirm pending members only have their relevant buttons
     within ".membership.--pending[data-id='#{pending_membership.id}']" do
       expect(page).to have_selector('.approve-member')
       expect(page).not_to have_selector('.promote-to-moderator')
       expect(page).not_to have_selector('.demote-from-moderator')
     end
 
+    # Confirm moderators only have their relevant buttons
     within ".membership.--moderator[data-id='#{moderator_membership.id}']" do
       expect(page).not_to have_selector('.approve-member')
       expect(page).not_to have_selector('.promote-to-moderator')
       expect(page).to have_selector('.demote-from-moderator')
     end
 
+    # Confirm members only have their relevant buttons
     within ".membership.--member[data-id='#{approved_membership.id}']" do
       expect(page).not_to have_selector('.approve-member')
       expect(page).to have_selector('.promote-to-moderator')
