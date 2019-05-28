@@ -1,27 +1,35 @@
 <% @memberships.each do |membership| %>
-  <div>
-    <%= membership.name %>
+  <div class="membership --<%= membership.status%>" data-id="<%= membership.id %>">
+    <h3>
+      <span class="name"><%= membership.name %></span>
+      (<span class="status --<%= membership.status %>"><%= membership.status %></span>)</h3>
+
     <% if policy(membership).show_email? %>
-      <%= membership.email %>
+      <p class="email"><%= membership.email %></p>
     <% end %>
-    <%= membership.status %>
-    <% if membership.status == 'pending' && policy(membership).approval? %>
-      <%= button_to "Approve", membership_approval_path(membership) %>
+
+    <% if policy(membership).show_onboarding_question_response? %>
+      <p>
+        <span class="onboarding-question"><%= membership.community.onboarding_question%>
+        <span class="onboarding-question-response"><%= membership.onboarding_question_response %></span>
+      </p>
     <% end %>
-    <% if ModeratorPolicy.new(current_person, membership.community).update? &&
-        membership.person %>
-      <% if membership.status != 'moderator' %>
-        <%= button_to "Set moderator",
-            community_moderator_path(membership.community, membership.person),
-            method: :put
-        %>
-      <% end %>
-      <% if membership.status == 'moderator' %>
-        <%= button_to "Dismiss moderator",
-            community_moderator_path(membership.community, membership.person),
-            method: :delete
-        %>
-      <% end %>
+
+    <% if policy(membership).approve_member? %>
+      <%= button_to "Approve",
+                    membership_approval_path(membership), class: 'approve-member' %>
+    <% end %>
+
+    <% if policy(membership).promote_moderator? %>
+      <%= button_to "Promote to moderator",
+                    community_moderator_path(membership.community, membership.person),
+                    class: 'promote-to-moderator', method: :put %>
+    <% end %>
+
+    <% if policy(membership).demote_moderator? %>
+      <%= button_to "Demote from moderator",
+                    community_moderator_path(membership.community, membership.person),
+                    class: 'demote-from-moderator', method: :delete %>
     <% end %>
   </div>
 <% end %>

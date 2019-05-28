@@ -25,7 +25,6 @@ gem 'friendly_id', '~> 5'
 group :development, :test do
   gem 'pry-rails'
   gem 'pry-byebug'
-  gem 'rspec-rails', '~> 3'
 end
 
 group :development do
@@ -46,6 +45,8 @@ group :test do
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
   gem 'shoulda-matchers'
+  gem 'rspec-rails', '~> 3'
+  gem 'selenium-webdriver'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

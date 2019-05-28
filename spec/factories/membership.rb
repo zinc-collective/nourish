@@ -6,6 +6,8 @@ FactoryBot.define do
     person
     community
 
+    onboarding_question_response { ['red', 'blue', 'yellow', 'green'].sample }
+
     status { 'member' }
     trait :moderator do
       status { 'moderator' }

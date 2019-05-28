@@ -1,9 +1,7 @@
 class MembershipPolicy < ApplicationPolicy
-  attr_reader :person, :membership
 
-  def initialize(person, membership)
-    @person = person
-    @membership = membership
+  def membership
+    record
   end
 
   def index?
@@ -13,12 +11,32 @@ class MembershipPolicy < ApplicationPolicy
     person.memberships.active.where(community_id: membership.pluck(:community_id)).present?
   end
 
-  def approval?
-    person.staff? || Moderator.of?(person: person, community: membership.community)
+  def approve_member?
+    membership.pending? && staff_or_moderator?
   end
+  alias_method :approval?, :approve_member?
 
   def show_email?
-    person.staff? || Moderator.of?(person: person, community: membership.community)
+    staff_or_moderator?
+  end
+
+  def show_onboarding_question_response?
+    staff_or_moderator?
+  end
+
+  def promote_moderator?
+    !membership.pending? && !membership.moderator? && staff_or_moderator?
+  end
+
+  def demote_moderator?
+    membership.moderator? && staff_or_moderator?
+  end
+
+  private def staff_or_moderator?
+    return false unless person
+    return true if person.staff?
+    return true if Moderator.of?(person: person, community: membership.community)
+    return false
   end
 
   class Scope
