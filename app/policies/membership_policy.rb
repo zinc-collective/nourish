@@ -14,7 +14,7 @@ class MembershipPolicy < ApplicationPolicy
   def approve_member?
     membership.pending? && staff_or_moderator?
   end
-  alias_method :approval?, :approve_member?
+  alias_method :approve?, :approve_member?
 
   def show_email?
     staff_or_moderator?

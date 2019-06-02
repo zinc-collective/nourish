@@ -4,7 +4,7 @@ class Membership < ApplicationRecord
   validates :name, :email, :community_id, :status_updated_at, presence: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :email, uniqueness: { scope: :community_id, case_sensitive: false }
-  validates :status, inclusion: { in: %w(pending member moderator) }
+  validates :status, inclusion: { in: %w(pending awaiting_confirmation member moderator) }
 
   belongs_to :person, optional: true
 
@@ -23,6 +23,10 @@ class Membership < ApplicationRecord
     status.to_sym == :pending
   end
 
+  def awaiting_confirmation?
+    status.to_sym == :awaiting_confirmation
+  end
+
   def member?
     status.to_sym == :member
   end
@@ -35,8 +39,9 @@ class Membership < ApplicationRecord
   end
 
   def approve!
-    return if status == 'member'
-    update(status: 'member')
+    return if member?
+    MembershipMailer.approve_confirmation(self).deliver
+    update(status: 'awaiting_confirmation')
   end
 
   def set_status_update_at

@@ -1,14 +1,15 @@
 require "rails_helper"
 
 RSpec.describe MembershipMailer, type: :mailer do
-  let(:membership) { create(:membership, :pending, email: 'to@example.org') }
+  let(:community) { create(:community, name: 'Nourish') }
+  let(:membership) { create(:membership, :awaiting_confirmation, email: 'to@example.org', community: community) }
   describe "approve_confirmation" do
     let(:mail) { MembershipMailer.approve_confirmation(membership) }
 
     it "renders the headers" do
       expect(mail.subject).to eq("Approve membership")
       expect(mail.to).to eq(["to@example.org"])
-      expect(mail.from).to eq(["from@example.com"])
+      expect(mail.from).to eq(["do-not-reply@nourish.is"])
     end
 
     it "renders the body" do

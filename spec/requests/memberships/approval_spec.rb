@@ -15,9 +15,9 @@ RSpec.describe 'Membership approval', type: :request do
       it 'returns http success' do
         sign_in staff
 
-        post membership_approval_path(membership_to_be_approve)
+        post membership_approve_path(membership_to_be_approve)
 
-        expect(membership_to_be_approve.reload.status).to eq 'member'
+        expect(membership_to_be_approve.reload.status).to eq 'awaiting_confirmation'
         expect(response).to redirect_to(community_memberships_path(membership_to_be_approve.community.slug))
       end
     end
@@ -26,9 +26,9 @@ RSpec.describe 'Membership approval', type: :request do
       it 'returns http success' do
         sign_in moderator
 
-        post membership_approval_path(membership_to_be_approve)
+        post membership_approve_path(membership_to_be_approve)
 
-        expect(membership_to_be_approve.reload.status).to eq 'member'
+        expect(membership_to_be_approve.reload.status).to eq 'awaiting_confirmation'
         expect(response).to redirect_to(community_memberships_path(membership_to_be_approve.community.slug))
       end
     end
@@ -37,7 +37,7 @@ RSpec.describe 'Membership approval', type: :request do
       it 'redirects to root' do
         sign_in not_moderator
 
-        post membership_approval_path(membership_to_be_approve)
+        post membership_approve_path(membership_to_be_approve)
 
         expect(membership_to_be_approve.reload.status).to eq 'pending'
         expect(response).to redirect_to(root_path)

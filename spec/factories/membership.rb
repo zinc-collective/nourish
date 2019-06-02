@@ -8,6 +8,9 @@ FactoryBot.define do
 
     onboarding_question_response { ['red', 'blue', 'yellow', 'green'].sample }
 
+    trait :awaiting_confirmation do
+      status { 'awaiting_confirmation' }
+    end
     status { 'member' }
     trait :moderator do
       status { 'moderator' }

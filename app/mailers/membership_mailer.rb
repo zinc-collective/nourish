@@ -8,7 +8,7 @@ class MembershipMailer < ApplicationMailer
   def approve_confirmation(membership)
     @membership = membership
     @community = membership.community
-    @confirm_membership_link = 'test'
+    @confirm_membership_link = membership_confirmation_page_url(membership)
 
     mail to: membership.email, subject: "Approve membership"
   end

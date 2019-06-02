@@ -17,7 +17,7 @@
 
     <% if policy(membership).approve_member? %>
       <%= button_to "Approve",
-                    membership_approval_path(membership), class: 'approve-member' %>
+                    membership_approve_path(membership), class: 'approve-member' %>
     <% end %>
 
     <% if policy(membership).promote_moderator? %>
