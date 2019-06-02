@@ -3,6 +3,18 @@ class CommunityPolicy < ApplicationPolicy
     record
   end
 
+  def index?
+    true
+  end
+
+  def create?
+    person && person.staff?
+  end
+
+  def new?
+    person && person.staff?
+  end
+
   def join?
     return true unless person
     person.memberships.where(community: community).empty?
@@ -21,5 +33,18 @@ class CommunityPolicy < ApplicationPolicy
 
   def update?
     edit?
+  end
+
+  class Scope
+    attr_reader :person, :scope
+
+    def initialize(person, scope)
+      @person = person
+      @scope = scope || Community
+    end
+
+    def resolve
+      return scope.all
+    end
   end
 end
