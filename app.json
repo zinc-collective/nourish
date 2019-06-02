@@ -25,6 +25,12 @@
     },
     "SECRET_KEY_BASE": {
       "generator": "secret"
+    },
+    "MAILGUN_API_KEY": {
+      "required": true
+    },
+    "MAILGUN_DOMAIN": {
+      "required": true
     }
   },
   "formation": {
