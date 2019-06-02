@@ -21,8 +21,6 @@ gem 'pundit'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'friendly_id', '~> 5'
-gem 'mailgun-ruby', '~> 1'
-
 
 group :development, :test do
   gem 'pry-rails'
