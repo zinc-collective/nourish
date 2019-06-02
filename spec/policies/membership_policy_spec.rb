@@ -10,6 +10,8 @@ RSpec.describe MembershipPolicy do
   let(:approved_membership) { create(:membership, :member, community: community) }
   let(:member) { approved_membership.person }
 
+  let(:approved_membership_without_person) { create(:membership, :member, community: community, person: nil) }
+
   let(:moderator_membership) { create(:membership, :moderator, community: community) }
   let(:moderator) { moderator_membership.person }
 
@@ -30,11 +32,14 @@ RSpec.describe MembershipPolicy do
   end
 
   describe "#promote_moderator?" do
+
     subject { PolicyExerciser.new(described_class, :promote_moderator?) }
     it { is_expected.not_to be_allowed(person: nil, record: approved_membership) }
     it { is_expected.not_to be_allowed(person: member, record: approved_membership) }
     it { is_expected.not_to be_allowed(person: pending_member, record: approved_membership) }
     it { is_expected.not_to be_allowed(person: other_community_member, record: approved_membership) }
+    it { is_expected.not_to be_allowed(person: moderator, record: approved_membership_without_person) }
+    it { is_expected.not_to be_allowed(person: staff, record: approved_membership_without_person) }
     it { is_expected.to be_allowed(person: moderator, record: approved_membership) }
     it { is_expected.to be_allowed(person: staff, record: approved_membership) }
 

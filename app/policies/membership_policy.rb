@@ -25,7 +25,7 @@ class MembershipPolicy < ApplicationPolicy
   end
 
   def promote_moderator?
-    !membership.pending? && !membership.moderator? && staff_or_moderator?
+    membership.person && !membership.pending? && !membership.moderator? && staff_or_moderator?
   end
 
   def demote_moderator?
