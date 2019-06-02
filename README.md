@@ -21,3 +21,4 @@ Community-centric organization platform
 - Developer testing is done via unit tests and feature tests in the `spec/` folder.
 - Exploratory and usability testing is done on https://nourish-core-sandbox.herokuapp.com/
 - Run `brew install geckodriver` to run system test
+- This email is setup to use `mailcatcher` test email locally, run `gem install mailcatcher` to test email locally.
