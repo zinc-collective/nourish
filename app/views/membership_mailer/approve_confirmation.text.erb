@@ -1,3 +1,6 @@
-Membership#approve_confirmation
+Hi <%= @membership.name %>,
 
-<%= @greeting %>, find me in app/views/membership_mailer/approve_confirmation.text.erb
+You are approved to be a member of <%= @community.name %>.
+Go to <%= @confirm_membership_link %> to confirm your membership.
+
+<%= @community.name %>
