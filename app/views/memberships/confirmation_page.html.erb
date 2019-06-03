@@ -1,2 +1,9 @@
-<h1>Membership Confirmation</h1>
-<p>By clicking <%= button_to 'Confirm', membership_confirm_path(@membership) %>, you agree to join this community.</p>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <h1>Membership Confirmation</h1>
+      <p>Click confirm to join <%= @membership.community.name %>.</p>
+      <%= button_to 'Confirm', membership_confirm_path(@membership), class: 'btn btn--md btn--alt-color' %>
+    </div>
+  </div>
+</div>
