@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.feature "Staff Member Creates Community", type: :feature do
-  scenario "Staff member creates community" do
+  before do
     nourish = FactoryBot.create(:community, :nourish)
     staff_member = FactoryBot.create(:person, :staff)
 
@@ -11,9 +11,9 @@ RSpec.feature "Staff Member Creates Community", type: :feature do
     find_button("Log in").click()
 
     visit communities_path
-
     click_link_or_button('Add Community')
-
+  end
+  scenario "Staff member creates community" do
     new_community = FactoryBot.build(:community)
 
     within ".community-form" do
@@ -24,5 +24,17 @@ RSpec.feature "Staff Member Creates Community", type: :feature do
     saved_community = Community.find_by(name: new_community.name)
 
     expect(saved_community).to be_present
+  end
+
+  scenario "Staff Member fails to create community" do
+    within ".community-form" do
+      find_button('Create Community').click()
+    end
+
+    within ".community-form .field[data-field='community[name]'].--error" do
+      expect('*[name="community[name]"]').to be_present
+      expect('*[data-field="community[name]"].error').to be_present
+      expect(page).to have_content "can't be blank"
+    end
   end
 end
