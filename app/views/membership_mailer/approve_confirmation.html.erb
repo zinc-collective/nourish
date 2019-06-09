@@ -1,8 +1,8 @@
 <p>Hi <%= @membership.name %>,</p>
 <p>
-  You are approved to be a member of <%= @community.name %>.
+  You are approved to be a member of <%= @membership.community.name %>.
   <br/>
-  <%= link_to "Confirm your membership.", @confirm_membership_link %>
+  <%= link_to "Confirm your membership.", membership_confirmation_page_url(@membership) %>
 </p>
 
-<p><%= @community.name %></p>
+<p><%= @membership.community.name %></p>

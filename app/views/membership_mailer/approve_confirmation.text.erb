@@ -1,6 +1,6 @@
 Hi <%= @membership.name %>,
 
-You are approved to be a member of <%= @community.name %>.
-Go to <%= @confirm_membership_link %> to confirm your membership.
+You are approved to be a member of <%= @membership.community.name %>.
+Go to <%= membership_confirmation_page_url(@membership) %> to confirm your membership.
 
-<%= @community.name %>
+<%= @membership.community.name %>
