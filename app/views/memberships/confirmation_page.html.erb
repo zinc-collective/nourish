@@ -2,7 +2,7 @@
   <div class="row justify-content-center">
     <div class="col-lg-8">
       <h1>Membership Confirmation</h1>
-      <p>Click confirm to join <%= @membership.community.name %>.</p>
+      <p>You've been approved to join <%= @membership.community.name %>. Your last step is to confirm your membership interest, or <a href="mailto: nourish@zincma.de">let us know if someone signed you up without your consent!</p>
       <%= button_to 'Confirm', membership_confirm_path(@membership), class: 'btn btn--md btn--alt-color' %>
     </div>
   </div>
