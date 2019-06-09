@@ -44,13 +44,13 @@ class MembershipPolicy < ApplicationPolicy
 
     def initialize(person, scope)
       @person = person
-      @scope = scope
+      @scope = scope || Membership
     end
 
     def resolve
-      return Membership.all if person.staff?
+      return scope.all if person.staff?
       community_ids = person.memberships.where(status: ['member', 'moderator']).pluck(:community_id)
-      Membership.where(community_id: community_ids)
+      scope.where(community_id: community_ids)
     end
   end
 end
