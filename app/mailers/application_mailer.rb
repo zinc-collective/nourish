@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'do-not-reply@nourish.is'
+  default from: ENV['EMAIL_DEFAULT_FROM']
   layout 'mailer'
 end

@@ -31,6 +31,9 @@
     },
     "MAILGUN_DOMAIN": {
       "required": true
+    },
+    "EMAIL_DEFAULT_FROM": {
+      "required": true
     }
   },
   "formation": {
