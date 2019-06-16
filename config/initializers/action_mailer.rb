@@ -9,8 +9,6 @@ if ENV["SMTP_ADDRESS"]
   }
 
   ActionMailer::Base.delivery_method = :smtp
-elsif  Rails.env.test? || Rails.env.development?
-
 end
 
 if ENV["APP_ROOT_URL"]
