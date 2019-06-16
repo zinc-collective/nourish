@@ -14,9 +14,9 @@ class CommunitiesController < ApplicationController
 
   def create
     authorize(repository)
-    community = repository.create(community_params)
-    if(community.persisted?)
-      redirect_to community_memberships_path(community.slug)
+    @community = repository.create(community_params)
+    if(@community.persisted?)
+      redirect_to community_memberships_path(@community.slug)
     else
       render :edit
     end

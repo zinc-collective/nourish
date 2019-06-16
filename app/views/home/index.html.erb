@@ -10,31 +10,32 @@
   </section> <!-- end page title -->
 
 
-  <%= render 'section', class: "bg-gradient" do %>
-    <div class="row justify-content-center">
-      <div class="col-lg-12">
-        <div class="contact bg-color box-shadow-large offset-top-224">
-          <h3 class="section-title text-center"><%= t('alpha_cta.title') %></h3>
-          <p class="subtitle text-justify"><%= t('alpha_cta.subtitle') %></p>
-          <div class="row justify-content-center">
-            <div class="col-lg-6">
-              <%= render 'call_to_action', { text: t('alpha_cta.button_text'), url: new_community_membership_path(@nourish_community) } %>
+  <% if @nourish_community %>
+    <%= render 'section', class: "bg-gradient" do %>
+      <div class="row justify-content-center">
+        <div class="col-lg-12">
+          <div class="contact bg-color box-shadow-large offset-top-224">
+            <h3 class="section-title text-center"><%= t('alpha_cta.title') %></h3>
+            <p class="subtitle text-justify"><%= t('alpha_cta.subtitle') %></p>
+            <div class="row justify-content-center">
+              <div class="col-lg-6">
+                <%= render 'call_to_action', { text: t('alpha_cta.button_text'), url: new_community_membership_path(@nourish_community) } %>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <br class="clearfix" />
-    <div class="row">
-      <%- ['onboard_members', 'organize_community', 'fund_sustainably'].each do |feature| %>
-        <div class="col-lg-4">
-          <%= render 'feature', { icon: t("home.index.#{feature}.icon"),
-                                  title: t("home.index.#{feature}.title"),
-                                  text: t("home.index.#{feature}.text") } %>
-        </div>
-      <%- end %>
-    </div>
-
+      <br class="clearfix" />
+      <div class="row">
+        <%- ['onboard_members', 'organize_community', 'fund_sustainably'].each do |feature| %>
+          <div class="col-lg-4">
+            <%= render 'feature', { icon: t("home.index.#{feature}.icon"),
+                                    title: t("home.index.#{feature}.title"),
+                                    text: t("home.index.#{feature}.text") } %>
+          </div>
+        <%- end %>
+      </div>
+    <% end %>
   <%- end %>
 
   <%= render 'section' do %>

@@ -5,15 +5,9 @@
 <main class="row mb-64 community-form">
   <div class="col-md-12">
     <%= form_with model: [community] do |form| %>
-      <div class="col-md-12">
-        <%= label :name, :name %>
-        <%= form.text_field :name %>
-      </div>
+      <%= render "fields/text_field", form: form, field: :name %>
+      <%= render "fields/text_field", form: form, field: :onboarding_question %>
 
-      <div class="col-md-12">
-        <%= label :onboarding_question, :onboarding_question %>
-        <%= form.text_field :onboarding_question %>
-      </div>
       <div class="col-md-12">
         <%= form.submit class: "btn btn--lg btn--color" %>
       </div>

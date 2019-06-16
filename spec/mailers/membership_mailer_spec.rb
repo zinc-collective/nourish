@@ -9,7 +9,7 @@ RSpec.describe MembershipMailer, type: :mailer do
     it "renders the headers" do
       expect(mail.subject).to eq("Approve membership")
       expect(mail.to).to eq(["to@example.org"])
-      expect(mail.from).to eq(["do-not-reply@nourish.is"])
+      expect(mail.from).to eq(["no-reply@nourish.is"])
     end
 
     it "renders the body" do
