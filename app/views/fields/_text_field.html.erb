@@ -1,9 +1,9 @@
 <div class="field col-md-12 <%= form.object.errors[field].present? ? '--error' : '' %>"
      data-field="<%= field_name_attribute(form.object, field) %>">
   <%= form.label field %>
-  <%= form.text_field field %>
   <%- form.object.errors[field].present? %>
   <%- form.object.errors[field].each do |message| %>
     <span class="error"><%= message %></span>
   <%- end %>
+  <%= form.text_field field %>
 </div>
