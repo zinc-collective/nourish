@@ -48,7 +48,6 @@ group :test do
   gem 'chromedriver-helper'
   gem 'shoulda-matchers'
   gem 'rspec-rails', '~> 3'
-  gem 'selenium-webdriver'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
