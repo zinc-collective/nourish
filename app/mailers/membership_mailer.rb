@@ -6,8 +6,8 @@ class MembershipMailer < ApplicationMailer
   #   en.membership_mailer.approve_confirmation.subject
   #
   def approve_confirmation(membership)
-    @greeting = "Hi"
+    @membership = membership
 
-    mail to: membership.email, subject: "Approve membership"
+    mail to: @membership.email, subject: "Approve membership"
   end
 end

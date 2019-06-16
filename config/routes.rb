@@ -7,7 +7,9 @@ Rails.application.routes.draw do
   end
 
   resources :memberships do
-    post :approval
+    post :approve
+    get :confirmation_page
+    post :confirm
   end
 
   root to: "home#index"

@@ -1,5 +1,5 @@
 class MembershipsController < ApplicationController
-  before_action :authenticate_person!, only: :index
+  before_action :authenticate_person!, only: [:index, :approve, :confirmation_page, :confirm]
   after_action :verify_authorized, only: [:index, :approval]
   after_action :verify_policy_scoped, only: :index
 
@@ -23,10 +23,20 @@ class MembershipsController < ApplicationController
     end
   end
 
-  def approval
+  def approve
     @membership = Membership.find_by!(id: params[:membership_id])
     authorize @membership
     @membership.approve!
+    redirect_to community_memberships_path(@membership.community.slug)
+  end
+
+  def confirmation_page
+    @membership = Membership.find_by!(id: params[:membership_id])
+  end
+
+  def confirm
+    @membership = Membership.find_by!(id: params[:membership_id])
+    @membership.update(status: 'member', person: current_person)
     redirect_to community_memberships_path(@membership.community.slug)
   end
 

@@ -42,4 +42,14 @@ RSpec.describe Membership, type: :model do
       end
     end
   end
+
+  describe '#approve!' do
+    let(:membership) { create(:membership, :pending, community: create(:community)) }
+    subject { membership.approve! }
+
+    it 'approves membership' do
+      expect { subject }.to change { membership.status.to_sym }.from(:pending).to :awaiting_confirmation
+    end
+
+  end
 end

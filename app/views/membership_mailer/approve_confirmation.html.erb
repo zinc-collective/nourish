@@ -1,5 +1,8 @@
-<h1>Membership#approve_confirmation</h1>
-
+<p>Hi <%= @membership.name %>,</p>
 <p>
-  <%= @greeting %>, find me in app/views/membership_mailer/approve_confirmation.html.erb
+  You are approved to be a member of <%= @membership.community.name %>.
+  <br/>
+  <%= link_to "Confirm your membership.", membership_confirmation_page_url(@membership) %>
 </p>
+
+<p><%= @membership.community.name %></p>
