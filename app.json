@@ -26,14 +26,29 @@
     "SECRET_KEY_BASE": {
       "generator": "secret"
     },
-    "MAILGUN_API_KEY": {
+    "SMTP_ADDRESS": {
       "required": true
     },
-    "MAILGUN_DOMAIN": {
+    "SMTP_AUTHENTICATION": {
+      "required": true
+    },
+    "SMTP_DOMAIN": {
+      "required": true
+    },
+    "SMTP_PASSWORD": {
+      "required": true
+    },
+    "SMTP_PORT": {
+      "required": true
+    },
+    "SMTP_USER_NAME": {
       "required": true
     },
     "EMAIL_DEFAULT_FROM": {
       "required": true
+    },
+    "APP_ROOT_URL": {
+      "required": false
     }
   },
   "formation": {
