@@ -38,13 +38,24 @@ class Membership < ApplicationRecord
     end
   end
 
-  def approve!
+  def confirm
     return if member?
-    MembershipMailer.approve_confirmation(self).deliver
-    update(status: 'awaiting_confirmation')
+    return approve if person && email == person.email
+    notify_membership_confirmation
   end
 
   def set_status_update_at
     self.status_updated_at = Time.current if status_changed? || status_updated_at.blank?
+  end
+
+  private
+
+  def approve
+    update(status: :member)
+  end
+
+  def notify_membership_confirmation
+    MembershipMailer.approve_confirmation(self).deliver
+    update(status: :awaiting_confirmation)
   end
 end

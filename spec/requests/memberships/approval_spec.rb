@@ -5,41 +5,69 @@ RSpec.describe 'Membership approval', type: :request do
     let(:community) { create(:community) }
 
     let(:not_moderator) { create(:person) }
-    let!(:membership_to_be_approve) { create(:membership, :pending, community: community, person: not_moderator) }
+    let!(:pending_membership) { create(:membership, :pending, email: not_moderator.email, community: community, person: not_moderator) }
+    let!(:pending_membership_with_different_email) { create(:membership, :pending, community: community, person: not_moderator) }
+    let!(:anonymous_membership_to_be_approve) { create(:membership, :pending, community: community, person: nil) }
 
     let(:moderator) { create(:person) }
     let!(:moderator_membership) { create(:membership, :moderator, community: community, person: moderator) }
 
     let(:staff) { create(:person, staff: true) }
-    context 'staff' do
-      it 'returns http success' do
-        sign_in staff
 
-        post membership_approve_path(membership_to_be_approve)
+    shared_examples 'membership belongs to a person' do
+      it 'approves membership' do
+        sign_in person
 
-        expect(membership_to_be_approve.reload.status).to eq 'awaiting_confirmation'
-        expect(response).to redirect_to(community_memberships_path(membership_to_be_approve.community.slug))
+        post membership_approve_path(pending_membership)
+
+        expect(pending_membership.reload.status).to eq 'member'
+        expect(response).to redirect_to(community_memberships_path(pending_membership.community.slug))
       end
     end
 
-    context 'moderator' do
-      it 'returns http success' do
-        sign_in moderator
+    shared_examples 'membership belongs to a person with a different email' do
+      it 'update memberships to awaiting confirmation' do
+        sign_in person
 
-        post membership_approve_path(membership_to_be_approve)
+        post membership_approve_path(pending_membership_with_different_email)
 
-        expect(membership_to_be_approve.reload.status).to eq 'awaiting_confirmation'
-        expect(response).to redirect_to(community_memberships_path(membership_to_be_approve.community.slug))
+        expect(pending_membership_with_different_email.reload.status).to eq 'awaiting_confirmation'
+        expect(response).to redirect_to(community_memberships_path(pending_membership_with_different_email.community.slug))
       end
+    end
+
+    shared_examples 'membership does not belong to a person' do
+      it 'update memberships to awaiting confirmation' do
+        sign_in person
+
+        post membership_approve_path(anonymous_membership_to_be_approve)
+
+        expect(anonymous_membership_to_be_approve.reload.status).to eq 'awaiting_confirmation'
+        expect(response).to redirect_to(community_memberships_path(pending_membership.community.slug))
+      end
+    end
+
+    context 'staff' do
+      let(:person) { staff }
+      include_examples 'membership belongs to a person'
+      include_examples 'membership does not belong to a person'
+      include_examples 'membership belongs to a person with a different email'
+    end
+
+    context 'moderator' do
+      let(:person) { moderator }
+      include_examples 'membership belongs to a person'
+      include_examples 'membership does not belong to a person'
+      include_examples 'membership belongs to a person with a different email'
     end
 
     context 'not moderator' do
       it 'redirects to root' do
         sign_in not_moderator
 
-        post membership_approve_path(membership_to_be_approve)
+        post membership_approve_path(pending_membership)
 
-        expect(membership_to_be_approve.reload.status).to eq 'pending'
+        expect(pending_membership.reload.status).to eq 'pending'
         expect(response).to redirect_to(root_path)
       end
     end

@@ -26,7 +26,7 @@ class MembershipsController < ApplicationController
   def approve
     @membership = Membership.find_by!(id: params[:membership_id])
     authorize @membership
-    @membership.approve!
+    @membership.confirm
     redirect_to community_memberships_path(@membership.community.slug)
   end
 
