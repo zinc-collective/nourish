@@ -50,7 +50,7 @@ RSpec.describe Membership, type: :model do
     let(:anonymous_membership) { create(:membership, :pending, community: community, person: nil) }
 
     context 'when person is present' do
-      subject { membership.confirm }
+      subject { membership.approve }
 
       it 'approves membership' do
         expect { subject }.to change { membership.status.to_sym }.from(:pending).to :member
@@ -58,10 +58,14 @@ RSpec.describe Membership, type: :model do
     end
 
     context 'when person is absent' do
-      subject { anonymous_membership.confirm }
+      subject { anonymous_membership.approve }
 
       it 'awaits membership to be confirmed' do
         expect { subject }.to change { anonymous_membership.status.to_sym }.from(:pending).to :awaiting_confirmation
+      end
+
+      it 'request confirmation from member' do
+        expect { subject }.to change { ActionMailer::Base.deliveries.count }.by 1
       end
     end
   end
