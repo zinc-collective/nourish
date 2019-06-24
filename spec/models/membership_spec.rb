@@ -43,13 +43,30 @@ RSpec.describe Membership, type: :model do
     end
   end
 
-  describe '#approve!' do
-    let(:membership) { create(:membership, :pending, community: create(:community)) }
-    subject { membership.approve! }
+  describe '#confirm' do
+    let(:community) { create(:community) }
+    let(:person) { create(:person) }
+    let(:membership) { create(:membership, :pending, email: person.email, community: community, person: person) }
+    let(:anonymous_membership) { create(:membership, :pending, community: community, person: nil) }
 
-    it 'approves membership' do
-      expect { subject }.to change { membership.status.to_sym }.from(:pending).to :awaiting_confirmation
+    context 'when person is present' do
+      subject { membership.approve }
+
+      it 'approves membership' do
+        expect { subject }.to change { membership.status.to_sym }.from(:pending).to :member
+      end
     end
 
+    context 'when person is absent' do
+      subject { anonymous_membership.approve }
+
+      it 'awaits membership to be confirmed' do
+        expect { subject }.to change { anonymous_membership.status.to_sym }.from(:pending).to :awaiting_confirmation
+      end
+
+      it 'request confirmation from member' do
+        expect { subject }.to change { ActionMailer::Base.deliveries.count }.by 1
+      end
+    end
   end
 end
