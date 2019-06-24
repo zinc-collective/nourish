@@ -34,7 +34,7 @@
   <body>
     <main class="main-wrapper">
       <header class="nav">
-        <div class="nav__holder nav--sticky">
+        <div class="nav__holder ">
           <div class="container-fluid container-semi-fluid nav__container">
             <div class="flex-parent">
 
@@ -71,17 +71,21 @@
             </div> <!-- end flex-parent -->
           </div> <!-- end container -->
         </div>
-        <% flash.each do |key, value| %>
-          <div class="alert alert-<%= key %>">
-            <a href="#" data-dismiss="alert" class="close">×</a>
-            <ul>
-              <li>
-                <%= value %>
-              </li>
-            </ul>
-          </div>
-        <% end %>
       </header> <!-- end navigation -->
+      <% flash.each do |key, value| %>
+        <div class="row justify-content-center">
+          <div class="col-md-6">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+              <a href="#" data-dismiss="alert" class="close">×</a>
+              <ul>
+                <li>
+                  <%= value %>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      <% end %>
       <%- if content_for?(:unwrapped) %>
         <%= yield :unwrapped %>
       <%- else %>
