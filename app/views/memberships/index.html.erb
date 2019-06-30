@@ -1,35 +1,45 @@
-<% @memberships.each do |membership| %>
-  <div class="membership --<%= membership.status%>" data-id="<%= membership.id %>">
-    <h3>
-      <span class="name"><%= membership.name %></span>
-      (<span class="status --<%= membership.status %>"><%= membership.status %></span>)</h3>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Status</th>
+        <th scope="col"><%= @community.onboarding_question %></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @memberships.each do |membership| %>
+        <tr>
+          <th class="membership-cell"><%= membership.name %></th>
+          <% if policy(membership).show_email? %>
+            <th class="membership-cell"><%= membership.email %></th>
+          <% end %>
+          <th class="membership-cell"><%= membership.status.humanize %></th>
+          <% if policy(membership).show_onboarding_question_response? %>
+            <th class="membership-cell"><%= membership.onboarding_question_response %></th>
+          <% end %>
+          <th>
+            <% if policy(membership).approve_member? %>
+              <%= button_to "Approve",
+                            membership_approve_path(membership), class: 'membership-btn approve-member btn btn--md btn--alt-color' %>
+            <% end %>
 
-    <% if policy(membership).show_email? %>
-      <p class="email"><%= membership.email %></p>
-    <% end %>
+            <% if policy(membership).promote_moderator? %>
+              <%= button_to "Promote to moderator",
+                            community_moderator_path(membership.community, membership.person),
+                            class: 'membership-btn promote-to-moderator btn btn--md btn--alt-color', method: :put %>
+            <% end %>
 
-    <% if policy(membership).show_onboarding_question_response? %>
-      <p>
-        <span class="onboarding-question"><%= membership.community.onboarding_question%>
-        <span class="onboarding-question-response"><%= membership.onboarding_question_response %></span>
-      </p>
-    <% end %>
-
-    <% if policy(membership).approve_member? %>
-      <%= button_to "Approve",
-                    membership_approve_path(membership), class: 'approve-member' %>
-    <% end %>
-
-    <% if policy(membership).promote_moderator? %>
-      <%= button_to "Promote to moderator",
-                    community_moderator_path(membership.community, membership.person),
-                    class: 'promote-to-moderator', method: :put %>
-    <% end %>
-
-    <% if policy(membership).demote_moderator? %>
-      <%= button_to "Demote from moderator",
-                    community_moderator_path(membership.community, membership.person),
-                    class: 'demote-from-moderator', method: :delete %>
-    <% end %>
-  </div>
-<% end %>
+            <% if policy(membership).demote_moderator? %>
+              <%= button_to "Demote from moderator",
+                            community_moderator_path(membership.community, membership.person),
+                            class: 'membership-btn demote-from-moderator btn btn--md btn--dark', method: :delete %>
+            <% end %>
+          </th>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

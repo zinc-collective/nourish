@@ -3517,3 +3517,15 @@ dd {
 	border-bottom: 1px solid #E8ECED; }
 
 /*# sourceMappingURL=style.css.map */
+
+
+/*-------------------------------------------------------*/
+/* Table
+/*-------------------------------------------------------*/
+.membership-cell {
+  vertical-align: middle !important;
+}
+
+.membership-btn {
+	margin: 0 !important;
+}
