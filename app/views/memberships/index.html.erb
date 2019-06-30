@@ -21,6 +21,7 @@
             <th class="membership-cell"><%= membership.onboarding_question_response %></th>
           <% end %>
           <th>
+            <%= render 'call_to_action', { text: 'Edit', url: '#' } %>
             <% if policy(membership).approve_member? %>
               <%= button_to "Approve",
                             membership_approve_path(membership), class: 'membership-btn approve-member btn btn--md btn--alt-color' %>

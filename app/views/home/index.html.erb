@@ -19,7 +19,9 @@
             <p class="subtitle text-justify"><%= t('alpha_cta.subtitle') %></p>
             <div class="row justify-content-center">
               <div class="col-lg-6">
-                <%= render 'call_to_action', { text: t('alpha_cta.button_text'), url: new_community_membership_path(@nourish_community) } %>
+                <div>
+                  <%= render 'call_to_action', { text: t('alpha_cta.button_text'), url: new_community_membership_path(@nourish_community) } %>
+                </div>
               </div>
             </div>
           </div>

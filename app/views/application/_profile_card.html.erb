@@ -21,7 +21,9 @@
     <%- if local_assigns[:calls_to_action].present? %>
       <div class="section-buttons">
         <%- local_assigns[:calls_to_action].each do |call_to_action| %>
-          <%= render 'call_to_action', call_to_action %>
+          <div>
+            <%= render 'call_to_action', call_to_action %>
+          </div>
         <%- end %>
       </div>
     <%- end %>
