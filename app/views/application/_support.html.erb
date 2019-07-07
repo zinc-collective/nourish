@@ -1,0 +1,21 @@
+<form class="new_inbound_message" id="new_inbound_message" action="https://www.wegotyourback.today/inbound_messages" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓">
+  <input type="hidden" value="5edf6086-d0e1-4500-a3b7-1610a000b939" name="inbound_message[inbox_id]" id="inbound_message_inbox_id">
+  <div class="field " data-field="inboundmessage[sender_name]">
+  <label for="inbound_message_sender_name">Your Name</label>
+  <input type="text" name="inbound_message[sender_name]" id="inbound_message_sender_name">
+</div>
+
+  <div class="field " data-field="inboundmessage[sender_email]">
+  <label for="inbound_message_sender_email">Your Email</label>
+  <input type="text" name="inbound_message[sender_email]" id="inbound_message_sender_email">
+</div>
+
+  <div class="field " data-field="inboundmessage[raw_body]">
+  <label for="inbound_message_raw_body">Message</label>
+  <textarea name="inbound_message[raw_body]" id="inbound_message_raw_body" rows=8>
+<%= local_assigns[:message_template] %>
+  </textarea>
+</div>
+
+  <input type="submit" name="commit" value="Leave a message!" data-disable-with="Leave a message!">
+</form>
