@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :people
+  devise_for :people, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
 
   resources :communities, only: [:edit, :update, :index, :new, :create] do
     resources :memberships, only: [:index, :new, :create]
